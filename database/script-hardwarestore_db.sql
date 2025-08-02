@@ -31,9 +31,9 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `updated_at` timestamp NOT NULL DEFAULT (now()),
   PRIMARY KEY (`id_customer`) USING BTREE,
   UNIQUE KEY `document` (`document`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla hardwarestore_db.customer: ~10 rows (aproximadamente)
+-- Volcando datos para la tabla hardwarestore_db.customer: ~0 rows (aproximadamente)
 INSERT INTO `customer` (`id_customer`, `document`, `name`, `phone`, `address`, `email`, `created_at`, `updated_at`) VALUES
 	(1, 10000000, 'Juan Pérez García', '3101234567', 'Calle 12 # 34-56 Bogotá', 'juan.perez@example.com', '2025-08-02 14:20:19', '2025-08-02 14:20:19'),
 	(2, 10000001, 'María López Rodríguez', '3119876543', 'Carrera 15 # 78-90 Medellín', 'maria.lopez@example.com', '2025-08-02 14:20:19', '2025-08-02 14:20:19'),
@@ -58,9 +58,9 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `updated_at` timestamp NOT NULL DEFAULT (now()),
   PRIMARY KEY (`id_employee`),
   UNIQUE KEY `document` (`document`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla hardwarestore_db.employee: ~10 rows (aproximadamente)
+-- Volcando datos para la tabla hardwarestore_db.employee: ~0 rows (aproximadamente)
 INSERT INTO `employee` (`id_employee`, `document`, `name`, `position`, `salary`, `role`, `created_at`, `updated_at`) VALUES
 	(1, 20000000, 'Pedro Gutiérrez', 'Gerente', 3500000.00, 'admin', '2025-08-02 14:20:34', '2025-08-02 14:20:34'),
 	(2, 20000001, 'Laura Ramírez', 'Vendedor', 1800000.00, 'employee', '2025-08-02 14:20:34', '2025-08-02 14:20:34'),
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `order_detail` (
   KEY `FK_product` (`id_product`),
   CONSTRAINT `FK__purchase_order` FOREIGN KEY (`id_order`) REFERENCES `purchase_order` (`id_order`),
   CONSTRAINT `FK_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla hardwarestore_db.order_detail: ~10 rows (aproximadamente)
 INSERT INTO `order_detail` (`id_detail`, `id_order`, `id_product`, `quantity`, `unit_price`, `subtotal`) VALUES
@@ -116,13 +116,13 @@ CREATE TABLE IF NOT EXISTS `product` (
   UNIQUE KEY `name` (`name`),
   KEY `FK__supplier` (`supplier_id`),
   CONSTRAINT `FK__supplier` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`id_supplier`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla hardwarestore_db.product: ~10 rows (aproximadamente)
 INSERT INTO `product` (`id_product`, `name`, `category`, `price`, `stock_quantity`, `min_stock_level`, `supplier_id`, `created_at`, `updated_at`) VALUES
 	(1, 'Taladro Inalámbrico 12V', 'Herramientas Eléctricas', 250000.00, 25, 10, 1, '2025-08-02 14:21:23', '2025-08-02 14:21:23'),
 	(2, 'Pintura Látex Blanca 4L', 'Pinturas', 85000.00, 50, 20, 4, '2025-08-02 14:21:23', '2025-08-02 14:21:23'),
-	(3, 'Cinta Métrica 5m', 'Herramientas Manuales', 25000.00, 100, 30, 1, '2025-08-02 14:21:23', '2025-08-02 14:21:23'),
+	(3, 'Cinta Métrica 5m', 'Herramientas Manuales', 25000.00, 103, 30, 1, '2025-08-02 14:21:23', '2025-08-02 14:21:23'),
 	(4, 'Kit de Destornilladores', 'Herramientas Manuales', 45000.00, 40, 20, 6, '2025-08-02 14:21:23', '2025-08-02 14:21:23'),
 	(5, 'Cable Eléctrico 10 AWG', 'Electricidad', 35000.00, 200, 50, 3, '2025-08-02 14:21:23', '2025-08-02 14:21:23'),
 	(6, 'Bombillo LED 12W', 'Iluminación', 15000.00, 150, 50, 3, '2025-08-02 14:21:23', '2025-08-02 14:21:23'),
@@ -145,9 +145,9 @@ CREATE TABLE IF NOT EXISTS `purchase_order` (
   KEY `FK_purchase_order_employee` (`employee_id`),
   CONSTRAINT `FK_purchase_order_customer` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id_customer`),
   CONSTRAINT `FK_purchase_order_employee` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id_employee`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla hardwarestore_db.purchase_order: ~10 rows (aproximadamente)
+-- Volcando datos para la tabla hardwarestore_db.purchase_order: ~0 rows (aproximadamente)
 INSERT INTO `purchase_order` (`id_order`, `customer_id`, `employee_id`, `total_amount`, `status`, `order_date`, `created_at`) VALUES
 	(1, 1, 1, 500000.00, 'PENDIENTE', '2025-08-02 14:21:39', '2025-08-02 14:21:39'),
 	(2, 2, 2, 120000.00, 'COMPLETADO', '2025-08-02 14:21:39', '2025-08-02 14:21:39'),
@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `sale` (
   KEY `FK__employee` (`id_employee`),
   CONSTRAINT `FK__customer` FOREIGN KEY (`id_customer`) REFERENCES `customer` (`id_customer`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK__employee` FOREIGN KEY (`id_employee`) REFERENCES `employee` (`id_employee`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla hardwarestore_db.sale: ~10 rows (aproximadamente)
 INSERT INTO `sale` (`id_sale`, `id_customer`, `id_employee`, `total_amount`, `sale_date`, `created_at`) VALUES
@@ -201,9 +201,9 @@ CREATE TABLE IF NOT EXISTS `sale_detail` (
   KEY `FK__detail_sale` (`id_sale`),
   CONSTRAINT `FK__detail_sale` FOREIGN KEY (`id_sale`) REFERENCES `sale` (`id_sale`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_detail_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla hardwarestore_db.sale_detail: ~10 rows (aproximadamente)
+-- Volcando datos para la tabla hardwarestore_db.sale_detail: ~11 rows (aproximadamente)
 INSERT INTO `sale_detail` (`id_detail`, `id_sale`, `id_product`, `quantity`, `unit_price`, `subtotal`) VALUES
 	(1, 1, 1, 1, 250000.00, 250000.00),
 	(2, 2, 2, 2, 85000.00, 170000.00),
@@ -214,7 +214,8 @@ INSERT INTO `sale_detail` (`id_detail`, `id_sale`, `id_product`, `quantity`, `un
 	(7, 7, 7, 10, 5000.00, 50000.00),
 	(8, 8, 8, 100, 8000.00, 800000.00),
 	(9, 9, 9, 2, 32000.00, 64000.00),
-	(10, 10, 10, 5, 12000.00, 60000.00);
+	(10, 10, 10, 5, 12000.00, 60000.00),
+	(11, 1, 3, 2, 250000.00, 500000.00);
 
 -- Volcando estructura para tabla hardwarestore_db.supplier
 CREATE TABLE IF NOT EXISTS `supplier` (
@@ -228,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `supplier` (
   PRIMARY KEY (`id_supplier`) USING BTREE,
   UNIQUE KEY `document` (`document`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla hardwarestore_db.supplier: ~10 rows (aproximadamente)
 INSERT INTO `supplier` (`id_supplier`, `document`, `name`, `phone`, `email`, `created_at`, `updated_at`) VALUES
@@ -242,6 +243,17 @@ INSERT INTO `supplier` (`id_supplier`, `document`, `name`, `phone`, `email`, `cr
 	(8, 30000007, 'Cerrajería La Llave', '3226665544', 'contactenos@cerrajerialallave.com', '2025-08-02 14:20:48', '2025-08-02 14:20:48'),
 	(9, 30000008, 'Maderas del Pacífico', '3233334455', 'info@maderaspacifico.co', '2025-08-02 14:20:48', '2025-08-02 14:20:48'),
 	(10, 30000009, 'Ferretería El Martillo', '3242223344', 'ventas@ferreteriaelmartillo.com', '2025-08-02 14:20:48', '2025-08-02 14:20:48');
+
+-- Volcando estructura para disparador hardwarestore_db.update_stock_quantity
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `update_stock_quantity` AFTER INSERT ON `sale_detail` FOR EACH ROW BEGIN
+	UPDATE product AS p
+	SET p.stock_quantity = p.stock_quantity - NEW.quantity
+	WHERE p.id_product = NEW.id_product;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
