@@ -10,8 +10,12 @@ public class PurchaseOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long id_order;
-    private Long customer_id;
-    private Long employee_id;
+    @ManyToOne
+    @JoinColumn(name = "id_customer")
+    private Customer id_customer;
+    @ManyToOne
+    @JoinColumn(name = "id_employee")
+    private Employee id_employee;
     @Column(precision = 10, scale = 2)
     private BigDecimal total_amount;
     private String status;
@@ -24,20 +28,20 @@ public class PurchaseOrder {
         this.id_order = id_order;
     }
 
-    public Long getCustomer_id() {
-        return customer_id;
+    public Customer getId_customer() {
+        return id_customer;
     }
 
-    public void setCustomer_id(Long customer_id) {
-        this.customer_id = customer_id;
+    public void setId_customer(Customer id_customer) {
+        this.id_customer = id_customer;
     }
 
-    public Long getEmployee_id() {
-        return employee_id;
+    public Employee getId_employee() {
+        return id_employee;
     }
 
-    public void setEmployee_id(Long employee_id) {
-        this.employee_id = employee_id;
+    public void setId_employee(Employee id_employee) {
+        this.id_employee = id_employee;
     }
 
     public BigDecimal getTotal_amount() {

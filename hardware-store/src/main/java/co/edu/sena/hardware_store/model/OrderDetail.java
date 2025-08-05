@@ -10,8 +10,12 @@ public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long id_detail;
-    private Long id_order;
-    private Long id_product;
+    @ManyToOne
+    @JoinColumn(name = "id_order")
+    private PurchaseOrder id_order;
+    @ManyToOne
+    @JoinColumn(name = "id_product")
+    private Product id_product;
     private Integer quantity;
     @Column(precision = 10, scale = 2)
     private BigDecimal unit_price;
@@ -26,19 +30,19 @@ public class OrderDetail {
         this.id_detail = id_detail;
     }
 
-    public Long getId_order() {
+    public PurchaseOrder getId_order() {
         return id_order;
     }
 
-    public void setId_order(Long id_order) {
+    public void setId_order(PurchaseOrder id_order) {
         this.id_order = id_order;
     }
 
-    public Long getId_product() {
+    public Product getId_product() {
         return id_product;
     }
 
-    public void setId_product(Long id_product) {
+    public void setId_product(Product id_product) {
         this.id_product = id_product;
     }
 
