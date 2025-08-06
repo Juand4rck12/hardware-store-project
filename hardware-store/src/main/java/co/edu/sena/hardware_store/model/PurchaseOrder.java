@@ -8,16 +8,22 @@ import java.math.BigDecimal;
 @Table(name = "purchase_order")
 public class PurchaseOrder {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_order", nullable = false)
     private Long id_order;
+
     @ManyToOne
-    @JoinColumn(name = "id_customer")
+    @JoinColumn(name = "id_customer", referencedColumnName = "id_customer")
     private Customer id_customer;
+
     @ManyToOne
-    @JoinColumn(name = "id_employee")
+    @JoinColumn(name = "id_employee", referencedColumnName = "id_employee")
     private Employee id_employee;
-    @Column(precision = 10, scale = 2)
+
+    @Column(name = "total_amount", precision = 10, scale = 2, nullable = false)
     private BigDecimal total_amount;
+
+    @Column(name = "status", nullable = false, length = 20)
     private String status;
 
     public Long getId_order() {

@@ -9,13 +9,18 @@ import java.math.BigDecimal;
 public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_sale", nullable = false)
     private Long id_sale;
+
     @ManyToOne
-    @JoinColumn(name = "id_customer")
+    @JoinColumn(name = "id_customer", referencedColumnName = "id_customer")
     private Customer id_customer;
+
     @ManyToOne
-    @JoinColumn(name = "id_employee")
+    @JoinColumn(name = "id_employee", referencedColumnName = "id_employee")
     private Employee id_employee;
+
+    @Column(name = "total_amount", precision = 10, scale = 2, nullable = false)
     private BigDecimal total_amount;
 
     public Long getId_sale() {

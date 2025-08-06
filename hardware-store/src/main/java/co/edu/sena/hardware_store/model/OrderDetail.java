@@ -9,17 +9,24 @@ import java.math.BigDecimal;
 public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @Column(name = "id_detail", nullable = false)
     private Long id_detail;
+
     @ManyToOne
-    @JoinColumn(name = "id_order")
+    @JoinColumn(name = "id_order", referencedColumnName = "id_order")
     private PurchaseOrder id_order;
+
     @ManyToOne
-    @JoinColumn(name = "id_product")
+    @JoinColumn(name = "id_product", referencedColumnName = "id_product")
     private Product id_product;
+
+    @Column(name = "quantity", nullable = false)
     private Integer quantity;
-    @Column(precision = 10, scale = 2)
+
+    @Column(name = "unit_price", precision = 10, scale = 2, nullable = false)
     private BigDecimal unit_price;
-    @Column(precision = 10, scale = 2)
+
+    @Column(name = "subtotal", precision = 10, scale = 2, nullable = false)
     private BigDecimal subtotal;
 
     public Long getId_detail() {
