@@ -19,27 +19,27 @@ public class EmployeeController {
         return "employee";
     }
 
-    @GetMapping("view/employee/form")
+    @GetMapping("/view/employee/form")
     public String form(Model model) {
         model.addAttribute("employee", new Employee());
         return "employee_form";
     }
 
-    @PostMapping("view/employee/save")
+    @PostMapping("/view/employee/save")
     public String save(@ModelAttribute Employee employee, RedirectAttributes ra) {
         employeeRepository.save(employee);
         ra.addFlashAttribute("success", "Empleado guardado");
-        return "redirect:view/employee";
+        return "redirect:/view/employee";
     }
 
-    @GetMapping("view/employee/edit/{id}")
+    @GetMapping("/view/employee/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
         Employee employee = employeeRepository.findById(id).orElse(null);
         model.addAttribute("employee", employee);
         return "employee/form";
     }
 
-    @PostMapping("view/employee/delete/{id}")
+    @PostMapping("/view/employee/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes ra) {
         employeeRepository.deleteById(id);
         ra.addFlashAttribute("success", "Empleado eliminado");

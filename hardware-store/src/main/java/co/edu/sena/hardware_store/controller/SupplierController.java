@@ -19,27 +19,27 @@ public class SupplierController {
         return "supplier";
     }
 
-    @GetMapping("view/supplier/form")
+    @GetMapping("/view/supplier/form")
     public String form(Model model) {
         model.addAttribute("supplier", new Supplier());
         return "supplier_form";
     }
 
-    @PostMapping("view/supplier/save")
+    @PostMapping("/view/supplier/save")
     public String save(@ModelAttribute Supplier supplier, RedirectAttributes ra) {
         supplierRepository.save(supplier);
         ra.addFlashAttribute("success", "Proveedor guardado");
-        return "redirect:view/supplier";
+        return "redirect:/view/supplier";
     }
 
-    @GetMapping("view/supplier/edit/{id}")
+    @GetMapping("/view/supplier/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
         Supplier supplier = supplierRepository.findById(id).orElse(null);
         model.addAttribute("supplier", supplier);
         return "supplier_form";
     }
 
-    @PostMapping("view/supplier/delete/{id}")
+    @PostMapping("/view/supplier/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes ra) {
         supplierRepository.deleteById(id);
         ra.addFlashAttribute("success", "Proveedor eliminado");

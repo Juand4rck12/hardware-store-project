@@ -25,7 +25,7 @@ public class SaleController {
         return "sale";
     }
 
-    @GetMapping("view/sale/form")
+    @GetMapping("/view/sale/form")
     public String form(Model model) {
         model.addAttribute("sale", new Sale());
         model.addAttribute("customer", customerRepository.findAll());
@@ -33,14 +33,14 @@ public class SaleController {
         return "sale_form";
     }
 
-    @PostMapping("view/sale/save")
+    @PostMapping("/view/sale/save")
     public String save(@ModelAttribute Sale sale, RedirectAttributes ra) {
         saleRepository.save(sale);
         ra.addFlashAttribute("success", "Venta guardada");
-        return "redirect:view/sale";
+        return "redirect:/view/sale";
     }
 
-    @GetMapping("view/sale/edit/{id}")
+    @GetMapping("/view/sale/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
         Sale sale = saleRepository.findById(id).orElse(null);
         model.addAttribute("sale", sale);
