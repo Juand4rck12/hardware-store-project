@@ -7,10 +7,19 @@ import jakarta.persistence.*;
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_supplier", nullable = false)
     private Long id_supplier;
+
+    @Column(name = "document", unique = true, nullable = false)
     private Long document;
+
+    @Column(name = "name", unique = true, nullable = false, length = 100)
     private String name;
+
+    @Column(name = "phone", nullable = false, length = 20)
     private String phone;
+
+    @Column(name = "email", nullable = false, length = 100)
     private String email;
 
     public Long getId_supplier() {

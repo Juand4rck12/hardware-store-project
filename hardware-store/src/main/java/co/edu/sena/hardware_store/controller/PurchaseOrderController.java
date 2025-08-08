@@ -25,7 +25,7 @@ public class PurchaseOrderController {
         return "purchaseOrder";
     }
 
-    @GetMapping("view/purchaseOrder/form")
+    @GetMapping("/view/purchaseOrder/form")
     public String form(Model model) {
         model.addAttribute("purchaseOrder", new PurchaseOrder());
         model.addAttribute("customer", customerRepository.findAll());
@@ -33,14 +33,14 @@ public class PurchaseOrderController {
         return "purchaseOrder_form";
     }
 
-    @PostMapping("view/purchaseOrder/save")
+    @PostMapping("/view/purchaseOrder/save")
     public String save(@ModelAttribute PurchaseOrder purchaseOrder, RedirectAttributes ra) {
         purchaseOrderRepository.save(purchaseOrder);
         ra.addFlashAttribute("success", "Orden de compra guardada");
         return "redirect:/view/purchaseOrder";
     }
 
-    @GetMapping("view/purchaseOrder/edit/{id}")
+    @GetMapping("/view/purchaseOrder/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
         PurchaseOrder purchaseOrder = purchaseOrderRepository.findById(id).orElse(null);
         model.addAttribute("purchaseOrder", purchaseOrder);
@@ -49,7 +49,7 @@ public class PurchaseOrderController {
         return "purchaseOrder_form";
     }
 
-    @PostMapping("view/purchaseOrder/delete/{id}")
+    @PostMapping("/view/purchaseOrder/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes ra) {
         purchaseOrderRepository.deleteById(id);
         ra.addFlashAttribute("success", "Orden de compra eliminada");

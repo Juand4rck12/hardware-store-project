@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   UNIQUE KEY `document` (`document`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla hardwarestore_db.customer: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla hardwarestore_db.customer: ~7 rows (aproximadamente)
 INSERT INTO `customer` (`id_customer`, `document`, `name`, `phone`, `address`, `email`, `created_at`, `updated_at`) VALUES
 	(1, 10000000, 'Juan Pérez García', '3101234567', 'Calle 12 # 34-56 Bogotá', 'juan.perez@example.com', '2025-08-02 14:20:19', '2025-08-02 14:20:19'),
 	(2, 10000001, 'María López Rodríguez', '3119876543', 'Carrera 15 # 78-90 Medellín', 'maria.lopez@example.com', '2025-08-02 14:20:19', '2025-08-02 14:20:19'),
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
   UNIQUE KEY `document` (`document`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla hardwarestore_db.employee: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla hardwarestore_db.employee: ~10 rows (aproximadamente)
 INSERT INTO `employee` (`id_employee`, `document`, `name`, `position`, `salary`, `role`, `created_at`, `updated_at`) VALUES
 	(1, 20000000, 'Pedro Gutiérrez', 'Gerente', 3500000.00, 'admin', '2025-08-02 14:20:34', '2025-08-02 14:20:34'),
 	(2, 20000001, 'Laura Ramírez', 'Vendedor', 1800000.00, 'employee', '2025-08-02 14:20:34', '2025-08-02 14:20:34'),
@@ -109,17 +109,17 @@ CREATE TABLE IF NOT EXISTS `product` (
   `price` decimal(10,2) NOT NULL,
   `stock_quantity` int NOT NULL,
   `min_stock_level` int NOT NULL,
-  `supplier_id` bigint NOT NULL,
+  `id_supplier` bigint NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT (now()),
   `updated_at` timestamp NOT NULL DEFAULT (now()),
   PRIMARY KEY (`id_product`),
   UNIQUE KEY `name` (`name`),
-  KEY `FK__supplier` (`supplier_id`),
-  CONSTRAINT `FK__supplier` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`id_supplier`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `FK__supplier` (`id_supplier`) USING BTREE,
+  CONSTRAINT `FK_product_supplier` FOREIGN KEY (`id_supplier`) REFERENCES `supplier` (`id_supplier`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla hardwarestore_db.product: ~10 rows (aproximadamente)
-INSERT INTO `product` (`id_product`, `name`, `category`, `price`, `stock_quantity`, `min_stock_level`, `supplier_id`, `created_at`, `updated_at`) VALUES
+INSERT INTO `product` (`id_product`, `name`, `category`, `price`, `stock_quantity`, `min_stock_level`, `id_supplier`, `created_at`, `updated_at`) VALUES
 	(1, 'Taladro Inalámbrico 12V', 'Herramientas Eléctricas', 250000.00, 25, 10, 1, '2025-08-02 14:21:23', '2025-08-02 14:21:23'),
 	(2, 'Pintura Látex Blanca 4L', 'Pinturas', 85000.00, 50, 20, 4, '2025-08-02 14:21:23', '2025-08-02 14:21:23'),
 	(3, 'Cinta Métrica 5m', 'Herramientas Manuales', 25000.00, 103, 30, 1, '2025-08-02 14:21:23', '2025-08-02 14:21:23'),
@@ -134,21 +134,21 @@ INSERT INTO `product` (`id_product`, `name`, `category`, `price`, `stock_quantit
 -- Volcando estructura para tabla hardwarestore_db.purchase_order
 CREATE TABLE IF NOT EXISTS `purchase_order` (
   `id_order` bigint NOT NULL AUTO_INCREMENT,
-  `customer_id` bigint NOT NULL,
-  `employee_id` bigint NOT NULL,
+  `id_customer` bigint NOT NULL,
+  `id_employee` bigint NOT NULL,
   `total_amount` decimal(10,2) NOT NULL DEFAULT (0),
   `status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `order_date` timestamp NOT NULL DEFAULT (now()),
   `created_at` timestamp NOT NULL DEFAULT (now()),
   PRIMARY KEY (`id_order`),
-  KEY `FK_purchase_order_customer` (`customer_id`),
-  KEY `FK_purchase_order_employee` (`employee_id`),
-  CONSTRAINT `FK_purchase_order_customer` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id_customer`),
-  CONSTRAINT `FK_purchase_order_employee` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id_employee`)
+  KEY `FK_purchase_order_customer` (`id_customer`) USING BTREE,
+  KEY `FK_purchase_order_employee` (`id_employee`) USING BTREE,
+  CONSTRAINT `FK__purchase_order_customer` FOREIGN KEY (`id_customer`) REFERENCES `customer` (`id_customer`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK__purchase_order_employee` FOREIGN KEY (`id_employee`) REFERENCES `employee` (`id_employee`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla hardwarestore_db.purchase_order: ~0 rows (aproximadamente)
-INSERT INTO `purchase_order` (`id_order`, `customer_id`, `employee_id`, `total_amount`, `status`, `order_date`, `created_at`) VALUES
+-- Volcando datos para la tabla hardwarestore_db.purchase_order: ~10 rows (aproximadamente)
+INSERT INTO `purchase_order` (`id_order`, `id_customer`, `id_employee`, `total_amount`, `status`, `order_date`, `created_at`) VALUES
 	(1, 1, 1, 500000.00, 'PENDIENTE', '2025-08-02 14:21:39', '2025-08-02 14:21:39'),
 	(2, 2, 2, 120000.00, 'COMPLETADO', '2025-08-02 14:21:39', '2025-08-02 14:21:39'),
 	(3, 3, 3, 250000.00, 'EN_PROCESO', '2025-08-02 14:21:39', '2025-08-02 14:21:39'),
@@ -175,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `sale` (
   CONSTRAINT `FK__employee` FOREIGN KEY (`id_employee`) REFERENCES `employee` (`id_employee`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla hardwarestore_db.sale: ~10 rows (aproximadamente)
+-- Volcando datos para la tabla hardwarestore_db.sale: ~0 rows (aproximadamente)
 INSERT INTO `sale` (`id_sale`, `id_customer`, `id_employee`, `total_amount`, `sale_date`, `created_at`) VALUES
 	(1, 1, 1, 250000.00, '2025-08-02 14:21:58', '2025-08-02 14:21:58'),
 	(2, 2, 2, 170000.00, '2025-08-02 14:21:58', '2025-08-02 14:21:58'),
@@ -203,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `sale_detail` (
   CONSTRAINT `FK_detail_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla hardwarestore_db.sale_detail: ~11 rows (aproximadamente)
+-- Volcando datos para la tabla hardwarestore_db.sale_detail: ~0 rows (aproximadamente)
 INSERT INTO `sale_detail` (`id_detail`, `id_sale`, `id_product`, `quantity`, `unit_price`, `subtotal`) VALUES
 	(1, 1, 1, 1, 250000.00, 250000.00),
 	(2, 2, 2, 2, 85000.00, 170000.00),

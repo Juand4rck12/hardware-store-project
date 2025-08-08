@@ -25,7 +25,7 @@ public class OrderDetailController {
         return "orderDetail";
     }
 
-    @GetMapping("view/orderDetail/form")
+    @GetMapping("/view/orderDetail/form")
     public String form(Model model) {
         model.addAttribute("orderDetail", new OrderDetail());
         model.addAttribute("product", productRepository.findAll());
@@ -33,14 +33,14 @@ public class OrderDetailController {
         return "orderDetail_form";
     }
 
-    @PostMapping("view/orderDetail/save")
+    @PostMapping("/view/orderDetail/save")
     public String save(@ModelAttribute OrderDetail orderDetail, RedirectAttributes ra) {
         orderDetailRepository.save(orderDetail);
         ra.addFlashAttribute("success", "Detalle de orden guardado");
         return "redirect:/view/orderDetail";
     }
 
-    @GetMapping("view/orderDetail/edit/{id}")
+    @GetMapping("/view/orderDetail/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
         OrderDetail orderDetail = orderDetailRepository.findById(id).orElse(null);
         model.addAttribute("orderDetail", orderDetail);
@@ -49,7 +49,7 @@ public class OrderDetailController {
         return "orderDetail_form";
     }
 
-    @PostMapping("view/orderDetail/delete/{id}")
+    @PostMapping("/view/orderDetail/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes ra) {
         orderDetailRepository.deleteById(id);
         ra.addFlashAttribute("success", "Detalle de orden eliminado");

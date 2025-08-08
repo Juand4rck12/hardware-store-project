@@ -6,18 +6,27 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "sale_detail")
-public class Sale_Detail {
+public class SaleDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_detail", nullable = false)
     private Long id_detail;
+
     @ManyToOne
-    @JoinColumn(name = "id_sale")
+    @JoinColumn(name = "id_sale", referencedColumnName = "id_sale")
     private Sale id_sale;
+
     @ManyToOne
-    @JoinColumn(name = "id_product")
+    @JoinColumn(name = "id_product", referencedColumnName = "id_product")
     private Product id_product;
+
+    @Column(name = "quantity", nullable = false)
     private Integer quantity;
+
+    @Column(name = "unit_price", precision = 10, scale = 2, nullable = false)
     private BigDecimal unit_price;
+
+    @Column(name = "subtotal", precision = 10, scale = 2, nullable = false)
     private BigDecimal subtotal;
 
     public Long getId_detail() {

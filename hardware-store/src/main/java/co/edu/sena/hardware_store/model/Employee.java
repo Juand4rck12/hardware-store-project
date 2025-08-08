@@ -9,12 +9,22 @@ import java.math.BigDecimal;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_employee", nullable = false)
     private Long id_employee;
+
+    @Column(name = "document", nullable = false, unique = true)
     private Long document;
+
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
+
+    @Column(name = "position", nullable = false, length = 50)
     private String position;
-    @Column(precision = 10, scale = 2)
+
+    @Column(name = "salary", precision = 10, scale = 2, nullable = false)
     private BigDecimal salary;
+
+    @Column(name = "role", nullable = false, length = 20)
     private String role;
 
     public Long getId_employee() {

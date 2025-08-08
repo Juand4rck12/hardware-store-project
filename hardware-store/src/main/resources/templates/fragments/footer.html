@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- Solo necesario para validación del fragmento -->
+</head>
+<body>
+
+<!--
+    Fragmento del Footer para FerreMax
+    Este fragmento puede ser incluido en cualquier vista usando:
+    <div th:replace="~{fragments/footer :: footer}"></div>
+-->
+<footer th:fragment="footer" class="footer mt-5">
+    <div class="container-fluid px-4 py-4">
+        <!-- Línea divisoria superior -->
+        <div class="border-top border-custom-light mb-4"></div>
+
+        <!-- Contenido del footer -->
+        <div class="row align-items-center">
+            <!-- Información de copyright (lado izquierdo) -->
+            <div class="col-12 col-md-6 mb-3 mb-md-0">
+                <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2">
+                    <div class="brand-icon d-flex align-items-center justify-content-center me-2"
+                         style="width: 32px; height: 32px; background: var(--accent-color); border-radius: 6px;">
+                        <i class="fas fa-tools text-white" style="font-size: 0.875rem;"></i>
+                    </div>
+                    <div>
+                        <div class="text-custom-primary fw-bold mb-1" style="font-size: 0.95rem;">
+                            FerreMax
+                        </div>
+                        <div class="text-custom-secondary" style="font-size: 0.85rem; line-height: 1.4;">
+                            © 2025 ADSO 2921881 - SENA.<br class="d-sm-none">
+                            <span class="d-none d-sm-inline">&nbsp;</span>Todos los derechos reservados.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Versión del sistema (lado derecho) -->
+            <div class="col-12 col-md-6">
+                <div class="d-flex justify-content-start justify-content-md-end">
+                    <div class="text-custom-secondary" style="font-size: 0.8rem;">
+                        <i class="fas fa-code me-1"></i>
+                        v1.0.0
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
