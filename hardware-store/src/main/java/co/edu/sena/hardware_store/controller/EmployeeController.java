@@ -8,6 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Controller
 public class EmployeeController {
     @Autowired
@@ -16,6 +20,14 @@ public class EmployeeController {
     @GetMapping("/view/employee")
     public String list(Model model) {
         model.addAttribute("employee", employeeRepository.findAll());
+        List<Employee> employees = employeeRepository.findAll();
+        Set<String> roles = employees.
+                stream()
+                .map(Employee::getRole)
+                .sorted()
+                .collect(Collectors.toSet());
+        model.addAttribute("employees", employees);
+        model.addAttribute("roles", roles);
         return "employee";
     }
 

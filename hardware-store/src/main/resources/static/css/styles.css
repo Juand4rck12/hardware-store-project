@@ -343,3 +343,40 @@ body {
   background: #EA580C;
   color: var(--text-inverse);
 }
+
+tr * {
+    text-align: center !important;
+}
+
+/* Estilos adicionales para el footer */
+.footer {
+    background-color: var(--bg-main);
+    margin-top: auto; /* Para que se pegue al final en caso de contenido corto */
+}
+
+.footer-link {
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+    color: var(--accent-color) !important;
+    text-decoration: none;
+}
+
+/* Responsive adjustments específicos para el footer */
+@media (max-width: 575.98px) {
+    .footer .container-fluid {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .footer .row > div {
+        text-align: left;
+    }
+}
+
+@media (min-width: 768px) {
+    .footer .col-md-6:last-child {
+        text-align: right;
+    }
+}

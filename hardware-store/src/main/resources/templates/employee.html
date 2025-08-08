@@ -85,19 +85,12 @@
                         <span class="text-muted fw-medium">Filtros:</span>
                     </div>
 
-                    <select class="form-select" style="width: auto; min-width: 180px;">
-                        <option>Todos los departamentos</option>
-                        <option>Recursos Humanos</option>
-                        <option>Ventas</option>
-                        <option>Almacén</option>
-                        <option>Administración</option>
-                    </select>
-
-                    <select class="form-select" style="width: auto; min-width: 160px;">
-                        <option>Todos los estados</option>
-                        <option>Activo</option>
-                        <option>En Vacaciones</option>
-                        <option>Inactivo</option>
+                    <select id="roleFilter" class="form-select" style="width: auto; min-width: 180px;">
+                        <option value="">Todos los roles</option>
+                        <option th:each="role: ${roles}"
+                                th:value="${role}"
+                                th:text="${role}">
+                        </option>
                     </select>
 
                     <button class="btn btn-outline-secondary">
@@ -114,7 +107,7 @@
 
     <!-- Tabla de Empleados -->
     <div class="p-4">
-        <div class="table-responsive">
+        <div class="shadow table-responsive">
             <table class="table inventory-table">
                 <thead>
                 <tr>
@@ -126,81 +119,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td class="py-3 px-3 fw-medium">E001</td>
-                    <td class="py-3 px-3">María González</td>
-                    <td class="py-3 px-3 d-none d-md-table-cell">Recursos Humanos</td>
-                    <td class="py-3 px-3 d-none d-lg-table-cell">Gerente de RRHH</td>
-                    <td class="py-3 px-3 fw-medium d-none d-lg-table-cell">$2.500.000</td>
-                    <td class="py-3 px-3">
-                        <span class="status-available">Activo</span>
-                    </td>
-                    <td class="py-3 px-3">
-                        <div class="d-flex gap-1">
-                            <button class="action-btn p-2" title="Editar">
+                <tr th:each="emp : ${employee}">
+                    <td th:text="${emp.document}" class="py-3 px-3 fw-medium"></td>
+                    <td th:text="${emp.name}" class="py-3 px-3"></td>
+                    <td th:text="${emp.position}" class="py-3 px-3"></td>
+                    <td th:text="${emp.role}" class="py-3 px-3"></td>
+                    <td class="">
+                        <div class="">
+                            <button class="btn btn-info" title="Editar">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="action-btn p-2" title="Eliminar">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="py-3 px-3 fw-medium">E002</td>
-                    <td class="py-3 px-3">Carlos Martínez</td>
-                    <td class="py-3 px-3 d-none d-md-table-cell">Ventas</td>
-                    <td class="py-3 px-3 d-none d-lg-table-cell">Vendedor</td>
-                    <td class="py-3 px-3 fw-medium d-none d-lg-table-cell">$1.200.000</td>
-                    <td class="py-3 px-3">
-                        <span class="status-low-stock">En Vacaciones</span>
-                    </td>
-                    <td class="py-3 px-3">
-                        <div class="d-flex gap-1">
-                            <button class="action-btn p-2" title="Editar">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="action-btn p-2" title="Eliminar">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="py-3 px-3 fw-medium">E003</td>
-                    <td class="py-3 px-3">Ana Rodríguez</td>
-                    <td class="py-3 px-3 d-none d-md-table-cell">Almacén</td>
-                    <td class="py-3 px-3 d-none d-lg-table-cell">Supervisora</td>
-                    <td class="py-3 px-3 fw-medium d-none d-lg-table-cell">$1.800.000</td>
-                    <td class="py-3 px-3">
-                        <span class="status-available">Activo</span>
-                    </td>
-                    <td class="py-3 px-3">
-                        <div class="d-flex gap-1">
-                            <button class="action-btn p-2" title="Editar">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="action-btn p-2" title="Eliminar">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="py-3 px-3 fw-medium">E004</td>
-                    <td class="py-3 px-3">Pedro López</td>
-                    <td class="py-3 px-3 d-none d-md-table-cell">Administración</td>
-                    <td class="py-3 px-3 d-none d-lg-table-cell">Contador</td>
-                    <td class="py-3 px-3 fw-medium d-none d-lg-table-cell">$2.000.000</td>
-                    <td class="py-3 px-3">
-                        <span class="status-out-of-stock">Inactivo</span>
-                    </td>
-                    <td class="py-3 px-3">
-                        <div class="d-flex gap-1">
-                            <button class="action-btn p-2" title="Editar">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="action-btn p-2" title="Eliminar">
+                            <button class="btn btn-danger" title="Eliminar">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
@@ -210,6 +139,9 @@
             </table>
         </div>
     </div>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
 </div>
 
 <!-- Bootstrap 5 JS -->
