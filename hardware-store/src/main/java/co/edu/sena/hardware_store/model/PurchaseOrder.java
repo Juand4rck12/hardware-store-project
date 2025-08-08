@@ -5,12 +5,12 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "sale")
-public class Sale {
+@Table(name = "purchase_order")
+public class PurchaseOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_sale", nullable = false)
-    private Long id_sale;
+    @Column(name = "id_order", nullable = false)
+    private Long id_order;
 
     @ManyToOne
     @JoinColumn(name = "id_customer", referencedColumnName = "id_customer")
@@ -23,12 +23,15 @@ public class Sale {
     @Column(name = "total_amount", precision = 10, scale = 2, nullable = false)
     private BigDecimal total_amount;
 
-    public Long getId_sale() {
-        return id_sale;
+    @Column(name = "status", nullable = false, length = 20)
+    private String status;
+
+    public Long getId_order() {
+        return id_order;
     }
 
-    public void setId_sale(Long id_sale) {
-        this.id_sale = id_sale;
+    public void setId_order(Long id_order) {
+        this.id_order = id_order;
     }
 
     public Customer getId_customer() {
@@ -53,5 +56,13 @@ public class Sale {
 
     public void setTotal_amount(BigDecimal total_amount) {
         this.total_amount = total_amount;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

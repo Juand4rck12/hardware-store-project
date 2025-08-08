@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Este head es solo para que el fragmento sea válido, no se renderiza cuando se incluye -->
+    <meta charset="UTF-8">
+    <title>Sidebar Fragment</title>
+</head>
+<body>
+
+<!-- Fragmento del Sidebar -->
+<div th:fragment="sidebar" class="sidebar" id="sidebar">
+    <!-- Sección de la marca/logo -->
+    <div class="brand-section p-4 mb-2">
+        <div class="d-flex align-items-center">
+            <div class="brand-icon d-flex align-items-center justify-content-center me-3">
+                <i class="fas fa-cube text-white"></i>
+            </div>
+            <div>
+                <h5 class="brand-title fs-4">FerreMax</h5>
+                <p class="brand-subtitle">Sistema de Gestión</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navegación del sidebar -->
+    <!-- currentPage debe ser pasado como parámetro al fragmento -->
+    <nav class="mt-3">
+        <a href="/" class="menu-item d-flex align-items-center py-3 px-4"
+           th:classappend="${currentPage != null and (currentPage == 'inicio' or currentPage == 'home')} ? 'active' : ''">
+            <i class="fas fa-home me-3" style="width: 20px;"></i>
+            <span>Inicio</span>
+        </a>
+
+        <a href="/inventario" class="menu-item d-flex align-items-center py-3 px-4"
+           th:classappend="${currentPage != null and currentPage == 'inventario'} ? 'active' : ''">
+            <i class="fas fa-boxes me-3" style="width: 20px;"></i>
+            <span>Inventario</span>
+        </a>
+
+        <a href="/ventas" class="menu-item d-flex align-items-center py-3 px-4"
+           th:classappend="${currentPage != null and currentPage == 'ventas'} ? 'active' : ''">
+            <i class="fas fa-shopping-cart me-3" style="width: 20px;"></i>
+            <span>Ventas</span>
+        </a>
+
+        <a href="/proveedores" class="menu-item d-flex align-items-center py-3 px-4"
+           th:classappend="${currentPage != null and currentPage == 'proveedores'} ? 'active' : ''">
+            <i class="fas fa-truck me-3" style="width: 20px;"></i>
+            <span>Proveedores</span>
+        </a>
+
+        <a href="/clientes" class="menu-item d-flex align-items-center py-3 px-4"
+           th:classappend="${currentPage != null and currentPage == 'clientes'} ? 'active' : ''">
+            <i class="fas fa-users me-3" style="width: 20px;"></i>
+            <span>Clientes</span>
+        </a>
+
+        <a href="/empleados" class="menu-item d-flex align-items-center py-3 px-4"
+           th:classappend="${currentPage != null and currentPage == 'empleados'} ? 'active' : ''">
+            <i class="fas fa-user-tie me-3" style="width: 20px;"></i>
+            <span>Empleados</span>
+        </a>
+
+        <a href="/reportes" class="menu-item d-flex align-items-center py-3 px-4"
+           th:classappend="${currentPage != null and currentPage == 'reportes'} ? 'active' : ''">
+            <i class="fas fa-chart-bar me-3" style="width: 20px;"></i>
+            <span>Reportes</span>
+        </a>
+
+        <a href="/configuracion" class="menu-item d-flex align-items-center py-3 px-4"
+           th:classappend="${currentPage != null and currentPage == 'configuracion'} ? 'active' : ''">
+            <i class="fas fa-cog me-3" style="width: 20px;"></i>
+            <span>Configuración</span>
+        </a>
+    </nav>
+</div>
+
+</body>
+</html>
