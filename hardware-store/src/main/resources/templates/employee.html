@@ -11,6 +11,11 @@
     <!-- FontAwesome -->
     <script src="https://kit.fontawesome.com/636360e29b.js" crossorigin="anonymous"></script>
 
+    <!-- DataTable -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css"/>
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+
     <!-- Estilos personalizados -->
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
@@ -49,7 +54,9 @@
                     <div class="d-flex align-items-center gap-2">
                         <div class="user-avatar d-flex align-items-center justify-content-center"
                              style="width: 35px; height: 35px;">
-                            JA
+                            <img th:src="@{/images/default-user.png}"
+                                 class="img-fluid rounded-circle"
+                                 alt="Usuario">
                         </div>
                         <div class="d-none d-md-block">
                             <div class="fw-bold text-dark" style="font-size: 0.9rem;">Juan Administrador</div>
@@ -75,40 +82,10 @@
         </div>
     </div>
 
-    <!-- Filtros -->
-    <div class="filter-section py-3 px-4">
-        <div class="row align-items-center">
-            <div class="col-12">
-                <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-3">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-filter me-2 text-muted"></i>
-                        <span class="text-muted fw-medium">Filtros:</span>
-                    </div>
-
-                    <select id="roleFilter" class="form-select" style="width: auto; min-width: 180px;">
-                        <option value="">Todos los roles</option>
-                        <option th:each="role: ${roles}"
-                                th:value="${role}"
-                                th:text="${role}">
-                        </option>
-                    </select>
-
-                    <button class="btn btn-outline-secondary">
-                        <i class="fas fa-search me-1"></i> Filtrar
-                    </button>
-
-                    <button class="btn btn-outline-secondary">
-                        <i class="fas fa-times me-1"></i> Limpiar
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Tabla de Empleados -->
     <div class="p-4">
-        <div class="shadow table-responsive">
-            <table class="table inventory-table">
+        <div class="shadow table-responsive p-3 bg-white rounded-3">
+            <table id="myTable" class="table inventory-table p-3">
                 <thead>
                 <tr>
                     <th class="py-3 px-3">Documento</th>

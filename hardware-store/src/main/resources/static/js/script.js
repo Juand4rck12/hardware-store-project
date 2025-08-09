@@ -33,3 +33,41 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     }
 });
+
+// Script para validación de Bootstrap 5
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+        // Obtener todos los formularios que necesitan validación
+        var forms = document.getElementsByClassName('needs-validation');
+
+        // Validar cada formulario
+        Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+
+// Script para formato automático del documento
+document.getElementById('document').addEventListener('input', function(e) {
+    // Remover cualquier caracter que no sea número
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
+
+// Script para formato del salario
+document.getElementById('salary').addEventListener('input', function(e) {
+    // Permitir solo números y punto decimal
+    this.value = this.value.replace(/[^0-9.]/g, '');
+
+    // Evitar múltiples puntos decimales
+    const parts = this.value.split('.');
+    if (parts.length > 2) {
+        this.value = parts[0] + '.' + parts.slice(1).join('');
+    }
+});
