@@ -38,7 +38,7 @@ public class ProductController {
             productRepository.save(product);
             ra.addFlashAttribute("success", "¡Producto guardado correctamente!");
         } catch (Exception e) {
-            ra.addFlashAttribute("error", "¡Ocurrio un error al guardar el producto");
+            ra.addFlashAttribute("error", "¡Ocurrio un error al guardar el producto" + e.getMessage());
         }
         return "redirect:/view/product";
     }
