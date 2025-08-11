@@ -1,0 +1,382 @@
+:root {
+  /* Colores Principales */
+  --primary-color: #1E293B;    /* Negro oscuro para textos y sidebar */
+  --accent-color: #F97316;     /* Naranja vibrante para acentos */
+
+  /* Colores Secundarios */
+  --success-color: #5BBE83;    /* Verde éxito (disponible) */
+  --warning-color: #F9AA33;    /* Naranja advertencia (stock bajo) */
+  --error-color: #EF4444;      /* Rojo error (agotado) */
+
+  /* Fondos */
+  --bg-main: #FFFFFF;          /* Blanco principal */
+  --bg-sidebar: #1E293B;       /* Fondo sidebar */
+  --bg-card: #F5F7FA;          /* Gris claro para tarjetas */
+
+  /* Textos */
+  --text-primary: #1E293B;     /* Texto oscuro */
+  --text-secondary: #64748B;   /* Texto secundario */
+  --text-inverse: #FFFFFF;     /* Texto sobre fondos oscuros */
+
+  /* Bordes */
+  --border-light: #CBD5E1;     /* Gris claro para bordes */
+
+  /* Sombras */
+  --shadow-card: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================
+   CONFIGURACIÓN BASE
+========================================== */
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ==========================================
+   SIDEBAR
+========================================== */
+.sidebar {
+  background: var(--bg-sidebar);
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  z-index: 1000;
+}
+
+.brand-section {
+  color: var(--text-inverse);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brand-title {
+  color: var(--text-inverse);
+  font-weight: bold;
+  margin: 0;
+}
+
+.brand-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.brand-icon {
+  background: var(--accent-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.menu-item {
+  color: var(--text-inverse);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-inverse);
+  text-decoration: none;
+}
+
+.menu-item.active {
+  background: var(--accent-color);
+  color: var(--text-inverse);
+}
+
+/* ==========================================
+   LAYOUT PRINCIPAL
+========================================== */
+.main-content {
+  margin-left: 250px;
+}
+
+.navbar-custom {
+  background: var(--bg-main);
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+}
+
+.content-header {
+  background: var(--bg-main);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.filter-section {
+  background: var(--bg-main);
+  border-bottom: 1px solid var(--border-light);
+}
+
+/* ==========================================
+   BOTONES PERSONALIZADOS
+========================================== */
+.btn-primary,
+.btn-add-product {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--text-inverse);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover,
+.btn-add-product:hover {
+  background: #EA580C;
+  border-color: #EA580C;
+  color: var(--text-inverse);
+}
+
+.btn-primary:focus,
+.btn-add-product:focus {
+  box-shadow: 0 0 0 0.25rem rgba(249, 115, 22, 0.25);
+}
+
+.action-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+
+.action-btn:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+/* ==========================================
+   ESTADOS DE PRODUCTO
+========================================== */
+.status-available {
+  background: var(--success-color);
+  color: var(--text-inverse);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status-low-stock {
+  background: var(--warning-color);
+  color: var(--text-inverse);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status-out-of-stock {
+  background: var(--error-color);
+  color: var(--text-inverse);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* ==========================================
+   TABLA DE INVENTARIO
+========================================== */
+.inventory-table {
+  background: var(--bg-main);
+  border-collapse: collapse;
+}
+
+.inventory-table th {
+  background: #F8FAFC;
+  color: var(--text-secondary);
+  font-weight: 600;
+  border: none;
+}
+
+.inventory-table td {
+  border-top: 1px solid var(--border-light);
+  vertical-align: middle;
+}
+
+.inventory-table tbody tr:hover {
+  background-color: var(--bg-card);
+}
+
+/* Colores específicos para stock */
+.stock-normal {
+  color: var(--text-primary);
+}
+
+.stock-warning {
+  color: var(--warning-color);
+  font-weight: bold;
+}
+
+.stock-danger {
+  color: var(--error-color);
+  font-weight: bold;
+}
+
+/* ==========================================
+   TARJETAS Y COMPONENTES
+========================================== */
+.card-custom {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  border-radius: 8px;
+}
+
+.card-custom:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+/* ==========================================
+   ELEMENTOS DE INTERFAZ
+========================================== */
+.notification-badge {
+  background: var(--error-color);
+  color: white;
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.user-avatar {
+  background: #3B82F6;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+}
+
+/* ==========================================
+   FORMULARIOS
+========================================== */
+.form-control:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 0.25rem rgba(249, 115, 22, 0.25);
+}
+
+.form-select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 0.25rem rgba(249, 115, 22, 0.25);
+}
+
+/* ==========================================
+   UTILIDADES PERSONALIZADAS
+========================================== */
+.text-custom-primary {
+  color: var(--text-primary) !important;
+}
+
+.text-custom-secondary {
+  color: var(--text-secondary) !important;
+}
+
+.text-custom-inverse {
+  color: var(--text-inverse) !important;
+}
+
+.bg-custom-main {
+  background-color: var(--bg-main) !important;
+}
+
+.bg-custom-sidebar {
+  background-color: var(--bg-sidebar) !important;
+}
+
+.bg-custom-card {
+  background-color: var(--bg-card) !important;
+}
+
+.border-custom-light {
+  border-color: var(--border-light) !important;
+}
+
+/* ==========================================
+   RESPONSIVE ADJUSTMENTS
+========================================== */
+@media (max-width: 991.98px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.show {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+  }
+
+  .sidebar-overlay.show {
+    display: block;
+  }
+}
+
+/* Botón toggle para mobile */
+.sidebar-toggle {
+  background: var(--accent-color);
+  border: none;
+  color: var(--text-inverse);
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+.sidebar-toggle:hover {
+  background: #EA580C;
+  color: var(--text-inverse);
+}
+
+tr * {
+    text-align: center !important;
+}
+
+/* Estilos adicionales para el footer */
+.footer {
+    background-color: var(--bg-main);
+    margin-top: auto; /* Para que se pegue al final en caso de contenido corto */
+}
+
+.footer-link {
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+    color: var(--accent-color) !important;
+    text-decoration: none;
+}
+
+/* Responsive adjustments específicos para el footer */
+@media (max-width: 575.98px) {
+    .footer .container-fluid {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .footer .row > div {
+        text-align: left;
+    }
+}
+
+@media (min-width: 768px) {
+    .footer .col-md-6:last-child {
+        text-align: right;
+    }
+}

@@ -19,27 +19,27 @@ public class CustomerController {
         return "customer";
     }
 
-    @GetMapping("view/customer/form")
+    @GetMapping("/view/customer/form")
     public String form(Model model) {
         model.addAttribute("customer", new Customer());
         return "customer_form";
     }
 
-    @PostMapping("view/customer/save")
+    @PostMapping("/view/customer/save")
     public String save(@ModelAttribute Customer customer, RedirectAttributes ra) {
         customerRepository.save(customer);
         ra.addFlashAttribute("success", "Cliente guardado");
-        return "redirect:view/customer";
+        return "redirect:/view/customer";
     }
 
-    @GetMapping("view/customer/edit/{id}")
+    @GetMapping("/view/customer/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
         Customer customer = customerRepository.findById(id).orElse(null);
         model.addAttribute("customer", customer);
         return "customer_form";
     }
 
-    @PostMapping("view/customer/delete/{id}")
+    @PostMapping("/view/customer/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes ra) {
         customerRepository.deleteById(id);
         ra.addFlashAttribute("success", "Cliente eliminado");
