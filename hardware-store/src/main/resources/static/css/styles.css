@@ -380,3 +380,32 @@ tr * {
         text-align: right;
     }
 }
+
+.stats-card {
+    border-left: 4px solid var(--accent-color);
+}
+
+.stats-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+}
+
+.activity-item {
+    border-left: 3px solid var(--border-light);
+    transition: all 0.2s ease;
+}
+
+.activity-item:hover {
+    border-left-color: var(--accent-color);
+    background-color: var(--bg-card);
+}
