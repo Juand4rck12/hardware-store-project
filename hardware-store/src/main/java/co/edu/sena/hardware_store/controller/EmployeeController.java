@@ -39,8 +39,12 @@ public class EmployeeController {
 
     @PostMapping("/view/employee/save")
     public String save(@ModelAttribute Employee employee, RedirectAttributes ra) {
-        employeeRepository.save(employee);
-        ra.addFlashAttribute("success", "Empleado guardado");
+        try {
+            employeeRepository.save(employee);
+            ra.addFlashAttribute("success", "¡Empleado guardado correctamente!");
+        } catch (Exception e) {
+            ra.addFlashAttribute("error", "¡Error al guardar el empleado!" + e.getMessage());
+        }
         return "redirect:/view/employee";
     }
 
@@ -48,13 +52,17 @@ public class EmployeeController {
     public String edit(@PathVariable Long id, Model model) {
         Employee employee = employeeRepository.findById(id).orElse(null);
         model.addAttribute("employee", employee);
-        return "employee/form";
+        return "employee_form";
     }
 
     @PostMapping("/view/employee/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes ra) {
-        employeeRepository.deleteById(id);
-        ra.addFlashAttribute("success", "Empleado eliminado");
+        try {
+            employeeRepository.deleteById(id);
+            ra.addFlashAttribute("success", "¡Empleado eliminado correctamente!");
+        } catch (Exception e) {
+            ra.addFlashAttribute("error", "¡Error al eliminar el empleado!" + e.getMessage());
+        }
         return "redirect:/view/employee";
     }
 }

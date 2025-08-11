@@ -1,0 +1,23 @@
+<!-- fragments/sweet-alert.html -->
+<div th:fragment="sweet-alert">
+    <div th:if="${success != null}"
+         id="successToast"
+         style="display: none;"
+         th:data-title="${successTitle != null ? successTitle : '¡Éxito!'}"
+         th:data-message="${success}"
+         th:data-icon="'success'"></div>
+
+    <div th:if="${error != null}"
+         id="errorToast"
+         style="display: none;"
+         th:data-title="${errorTitle != null ? errorTitle : '¡Error!'}"
+         th:data-message="${error}"
+         th:data-icon="'error'"></div>
+
+    <div th:if="${warning != null}"
+         id="warningToast"
+         style="display: none;"
+         th:data-title="${warningTitle != null ? warningTitle : '¡Advertencia!'}"
+         th:data-message="${warning}"
+         th:data-icon="'warning'"></div>
+</div>

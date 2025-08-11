@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css"/>
     <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
 
+    <!--  SweetAlert2  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
     <!-- Estilos personalizados -->
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
@@ -75,10 +78,10 @@
                 <h2 class="mb-1 fw-bold text-custom-primary">Gestión de Empleados</h2>
                 <p class="text-muted mb-0">Administra tu equipo de trabajo</p>
             </div>
-            <button class="btn btn-add-product">
+            <a th:href="@{/view/employee/form}" class="btn btn-add-product">
                 <i class="fas fa-plus me-2"></i>
                 Agregar Empleado
-            </button>
+            </a>
         </div>
     </div>
 
@@ -101,15 +104,21 @@
                     <td th:text="${emp.name}" class="py-3 px-3"></td>
                     <td th:text="${emp.position}" class="py-3 px-3"></td>
                     <td th:text="${emp.role}" class="py-3 px-3"></td>
-                    <td class="">
-                        <div class="">
-                            <button class="btn btn-info" title="Editar">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="btn btn-danger" title="Eliminar">
+                    <td class="py-3 px-3">
+                        <a th:href="@{/view/employee/edit/{id}(id = ${emp.id_employee})}"
+                           class="btn btn-outline-info btn-sm" title="Editar empleado">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form th:action="@{'/view/employee/delete/' + ${emp.id_employee}}"
+                              method="post"
+                              class="d-inline"
+                              data-confirm
+                              data-confirm-title="¿Eliminar empleado?"
+                              data-confirm-text="¿Está seguro que desea eliminar a este empleado? Esta acción no se puede deshacer.">
+                            <button type="submit" class="btn btn-outline-danger btn-sm" title="Eliminar empleado">
                                 <i class="fas fa-trash"></i>
                             </button>
-                        </div>
+                        </form>
                     </td>
                 </tr>
                 </tbody>
@@ -117,12 +126,18 @@
         </div>
     </div>
 
+    <!-- fragmento de SweetAlert -->
+    <div th:replace="~{fragments/sweet-alert :: sweet-alert}"></div>
+
     <!-- Footer -->
     <div th:replace="~{fragments/footer :: footer}"></div>
 </div>
 
 <!-- Bootstrap 5 JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- JavaScript para sidebar responsive -->
 <script th:src="@{/js/script.js}"></script>

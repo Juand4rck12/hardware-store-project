@@ -25,7 +25,7 @@
     <!-- Navegación del sidebar -->
     <!-- currentPage debe ser pasado como parámetro al fragmento -->
     <nav class="mt-3">
-        <a href="/" class="menu-item d-flex align-items-center py-3 px-4"
+        <a href="/view/home" class="menu-item d-flex align-items-center py-3 px-4"
            th:classappend="${currentPage != null and (currentPage == 'inicio' or currentPage == 'home')} ? 'active' : ''">
             <i class="fas fa-home me-3" style="width: 20px;"></i>
             <span>Inicio</span>
@@ -37,37 +37,37 @@
             <span>Inventario</span>
         </a>
 
-        <a href="/ventas" class="menu-item d-flex align-items-center py-3 px-4"
+        <a href="/view/order" class="menu-item d-flex align-items-center py-3 px-4"
            th:classappend="${currentPage != null and currentPage == 'ventas'} ? 'active' : ''">
             <i class="fas fa-shopping-cart me-3" style="width: 20px;"></i>
             <span>Ventas</span>
         </a>
 
-        <a href="/proveedores" class="menu-item d-flex align-items-center py-3 px-4"
+        <a href="/view/supplier" class="menu-item d-flex align-items-center py-3 px-4"
            th:classappend="${currentPage != null and currentPage == 'proveedores'} ? 'active' : ''">
             <i class="fas fa-truck me-3" style="width: 20px;"></i>
             <span>Proveedores</span>
         </a>
 
-        <a href="/clientes" class="menu-item d-flex align-items-center py-3 px-4"
+        <a href="/view/customer" class="menu-item d-flex align-items-center py-3 px-4"
            th:classappend="${currentPage != null and currentPage == 'clientes'} ? 'active' : ''">
             <i class="fas fa-users me-3" style="width: 20px;"></i>
             <span>Clientes</span>
         </a>
 
-        <a href="/empleados" class="menu-item d-flex align-items-center py-3 px-4"
+        <a href="/view/employee" class="menu-item d-flex align-items-center py-3 px-4"
            th:classappend="${currentPage != null and currentPage == 'empleados'} ? 'active' : ''">
             <i class="fas fa-user-tie me-3" style="width: 20px;"></i>
             <span>Empleados</span>
         </a>
 
-        <a href="/reportes" class="menu-item d-flex align-items-center py-3 px-4"
+        <a href="/view/report" class="menu-item d-flex align-items-center py-3 px-4"
            th:classappend="${currentPage != null and currentPage == 'reportes'} ? 'active' : ''">
             <i class="fas fa-chart-bar me-3" style="width: 20px;"></i>
             <span>Reportes</span>
         </a>
 
-        <a href="/configuracion" class="menu-item d-flex align-items-center py-3 px-4"
+        <a href="/view/config" class="menu-item d-flex align-items-center py-3 px-4"
            th:classappend="${currentPage != null and currentPage == 'configuracion'} ? 'active' : ''">
             <i class="fas fa-cog me-3" style="width: 20px;"></i>
             <span>Configuración</span>
