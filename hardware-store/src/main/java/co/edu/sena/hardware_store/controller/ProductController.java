@@ -34,8 +34,12 @@ public class ProductController {
 
     @PostMapping("/view/product/save")
     public String save(@ModelAttribute Product product, RedirectAttributes ra) {
-        productRepository.save(product);
-        ra.addFlashAttribute("success", "Producto guardado");
+        try {
+            productRepository.save(product);
+            ra.addFlashAttribute("success", "¡Producto guardado correctamente!");
+        } catch (Exception e) {
+            ra.addFlashAttribute("error", "¡Ocurrio un error al guardar el producto");
+        }
         return "redirect:/view/product";
     }
 
@@ -49,8 +53,12 @@ public class ProductController {
 
     @PostMapping("/view/product/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes ra) {
-        productRepository.deleteById(id);
-        ra.addFlashAttribute("success", "Producto eliminado");
+        try {
+            productRepository.deleteById(id);
+            ra.addFlashAttribute("success", "¡Producto eliminado correctamente!");
+        } catch (Exception e) {
+            ra.addFlashAttribute("error", "¡Ocurrio un error al eliminar el producto!");
+        }
         return "redirect:/view/product";
     }
 }
