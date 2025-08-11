@@ -94,6 +94,7 @@
                     <th class="py-3 px-3">Documento</th>
                     <th class="py-3 px-3">Nombre Completo</th>
                     <th class="py-3 px-3">Posición</th>
+                    <th class="py-3 px-3">Salario</th>
                     <th class="py-3 px-3">Rol</th>
                     <th class="py-3 px-3">Acciones</th>
                 </tr>
@@ -103,9 +104,10 @@
                     <td th:text="${emp.document}" class="py-3 px-3 fw-medium"></td>
                     <td th:text="${emp.name}" class="py-3 px-3"></td>
                     <td th:text="${emp.position}" class="py-3 px-3"></td>
+                    <td th:text="'$' + ${#numbers.formatDecimal(emp.salary, 0, 'COMMA', 0, 'POINT')}" class="py-3 px-3"></td>
                     <td th:text="${emp.role}" class="py-3 px-3"></td>
                     <td class="py-3 px-3">
-                        <a th:href="@{/view/employee/edit/{id}(id = ${emp.id_employee})}"
+                        <a th:href="@{'/view/employee/edit/' + ${emp.id_employee}}"
                            class="btn btn-outline-info btn-sm" title="Editar empleado">
                             <i class="fas fa-edit"></i>
                         </a>
