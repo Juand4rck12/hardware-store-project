@@ -27,8 +27,12 @@ public class CustomerController {
 
     @PostMapping("/view/customer/save")
     public String save(@ModelAttribute Customer customer, RedirectAttributes ra) {
-        customerRepository.save(customer);
-        ra.addFlashAttribute("success", "Cliente guardado");
+        try {
+            customerRepository.save(customer);
+            ra.addFlashAttribute("success", "Cliente guardado");
+        } catch (Exception e) {
+            ra.addFlashAttribute("error", "Ocurrió un error al guardar el cliente");
+        }
         return "redirect:/view/customer";
     }
 
@@ -41,8 +45,12 @@ public class CustomerController {
 
     @PostMapping("/view/customer/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes ra) {
-        customerRepository.deleteById(id);
-        ra.addFlashAttribute("success", "Cliente eliminado");
+        try {
+            customerRepository.deleteById(id);
+            ra.addFlashAttribute("success", "Cliente eliminado");
+        } catch (Exception e) {
+            ra.addFlashAttribute("error", "Ocurrió un error al eliminar el cliente");
+        }
         return "redirect:/view/customer";
     }
 }
