@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - FerreMax</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/636360e29b.js" crossorigin="anonymous"></script>
+
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+</head>
+
+<body>
+<!-- Overlay para mobile -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- Incluir el fragmento del sidebar pasando el parámetro currentPage -->
+<div th:replace="~{fragments/sidebar :: sidebar(currentPage='inicio')}"></div>
+
+<!-- Contenido Principal -->
+<div class="main-content">
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid px-4">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <button class="sidebar-toggle d-lg-none" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="flex-grow-1"></div>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="position-relative">
+                        <button class="btn btn-link text-secondary p-2">
+                            <i class="fas fa-bell fs-5"></i>
+                            <span class="notification-badge"></span>
+                        </button>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="d-flex align-items-center justify-content-center bg-primary rounded-circle" style="width: 35px; height: 35px;">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div class="d-none d-md-block">
+                            <div class="fw-bold text-dark" style="font-size: 0.9rem;">Juan Administrador</div>
+                            <div class="text-muted" style="font-size: 0.8rem;">Gerente General</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido del Dashboard -->
+    <div class="container-fluid p-4">
+        <!-- Saludo y fecha -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="text-custom-primary mb-1">¡Bienvenido de vuelta, Juan! 👋</h2>
+                <p class="text-custom-secondary mb-0">Aquí tienes un resumen de tu ferretería hoy</p>
+            </div>
+        </div>
+
+        <!-- Tarjetas de estadísticas principales -->
+        <div class="row g-4 mb-4">
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card card-custom stats-card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center">
+                            <div class="stats-icon me-3" style="background: rgba(91, 190, 131, 0.1);">
+                                <i class="fas fa-dollar-sign" style="color: var(--success-color);"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h3 class="mb-1 fw-bold">$2.450.000</h3>
+                                <p class="text-custom-secondary mb-0 small">Ventas del Día</p>
+                                <span class="badge bg-success bg-opacity-10 text-success small">
+                                        <i class="fas fa-arrow-up me-1"></i>+12%
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card card-custom stats-card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center">
+                            <div class="stats-icon me-3" style="background: rgba(249, 115, 22, 0.1);">
+                                <i class="fas fa-boxes" style="color: var(--accent-color);"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h3 class="mb-1 fw-bold">1.247</h3>
+                                <p class="text-custom-secondary mb-0 small">Productos en Stock</p>
+                                <span class="badge bg-warning bg-opacity-10 text-warning small">
+                                        <i class="fas fa-exclamation-triangle me-1"></i>15 Bajo stock
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card card-custom stats-card h-100">
+                    <div class="card-body p-4">
+                        <div class="div align-items-center">
+                            <div class="stats-icon me-3" style="background: rgba(59, 130, 246, 0.1);">
+                                <i class="fas fa-users" style="color: #3B82F6;"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h3 class="mb-1 fw-bold">89</h3>
+                                <p class="text-custom-secondary mb-0 small">Clientes Activos</p>
+                                <span class="badge bg-info bg-opacity-10 text-info small">
+                                        <i class="fas fa-arrow-up me-1"></i>+5 nuevos
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card card-custom stats-card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center">
+                            <div class="stats-icon me-3" style="background: rgba(139, 92, 246, 0.1);">
+                                <i class="fas fa-shopping-cart" style="color: #8B5CF6;"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h3 class="mb-1 fw-bold">34</h3>
+                                <p class="text-custom-secondary mb-0 small">Ventas del Día</p>
+                                <span class="badge bg-primary bg-opacity-10 text-primary small">
+                                        <i class="fas fa-clock me-1"></i>8 pendientes
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Segunda fila de contenido -->
+        <div class="row g-4 mb-4">
+            <!-- Gráfico de Ventas -->
+            <div class="col-12 col-lg-8">
+                <div class="card card-custom h-100">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4">
+                        <h5 class="card-title text-custom-primary mb-0">Ventas de la Semana</h5>
+                        <p class="text-custom-secondary small mb-0">Comparación con la semana anterior</p>
+                    </div>
+                    <div class="card-body pt-2">
+                        <div class="chart-container">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Productos más vendidos -->
+            <div class="col-12 col-lg-4">
+                <div class="card card-custom h-100">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4">
+                        <h5 class="card-title text-custom-primary mb-0">Top Productos</h5>
+                        <p class="text-custom-secondary small mb-0">Más vendidos esta semana</p>
+                    </div>
+                    <div class="card-body pt-2">
+                        <div class="d-flex align-items-center mb-3 p-3 rounded" style="background: var(--bg-card);">
+                            <div class="me-3">
+                                <div class="bg-primary bg-opacity-10 p-2 rounded">
+                                    <i class="fas fa-wrench text-primary"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0">Martillo 500g</h6>
+                                <small class="text-custom-secondary">45 vendidos</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold">$25.000</div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-3 p-3 rounded" style="background: var(--bg-card);">
+                            <div class="me-3">
+                                <div class="bg-success bg-opacity-10 p-2 rounded">
+                                    <i class="fas fa-bolt text-success"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0">Destornillador Set</h6>
+                                <small class="text-custom-secondary">38 vendidos</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold">$35.000</div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-3 p-3 rounded" style="background: var(--bg-card);">
+                            <div class="me-3">
+                                <div class="bg-warning bg-opacity-10 p-2 rounded">
+                                    <i class="fas fa-paint-brush text-warning"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0">Pintura Blanca 1L</h6>
+                                <small class="text-custom-secondary">29 vendidas</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold">$18.000</div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center p-3 rounded" style="background: var(--bg-card);">
+                            <div class="me-3">
+                                <div class="bg-info bg-opacity-10 p-2 rounded">
+                                    <i class="fas fa-screwdriver text-info"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0">Tornillos Pack x50</h6>
+                                <small class="text-custom-secondary">22 packs</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold">$8.500</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tercera fila -->
+        <div class="row g-4 mb-4">
+            <!-- Stock por categoría -->
+            <div class="col-12 col-lg-6">
+                <div class="card card-custom h-100">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4">
+                        <h5 class="card-title text-custom-primary mb-0">Stock por Categoría</h5>
+                        <p class="text-custom-secondary small mb-0">Distribución actual del inventario</p>
+                    </div>
+                    <div class="card-body pt-2">
+                        <div class="chart-container">
+                            <canvas id="stockChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actividad reciente -->
+            <div class="col-12 col-lg-6">
+                <div class="card card-custom h-100">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4">
+                        <h5 class="card-title text-custom-primary mb-0">Actividad Reciente</h5>
+                        <p class="text-custom-secondary small mb-0">Últimas transacciones y eventos</p>
+                    </div>
+                    <div class="card-body pt-2">
+                        <div class="activity-item ps-3 py-3 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3">
+                                    <i class="fas fa-shopping-cart text-success"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Venta realizada</h6>
+                                    <p class="text-custom-secondary small mb-0">Cliente: María González - $85.000</p>
+                                </div>
+                                <small class="text-custom-secondary">Hace 15 min</small>
+                            </div>
+                        </div>
+
+                        <div class="activity-item ps-3 py-3 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3">
+                                    <i class="fas fa-truck text-primary"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Pedido recibido</h6>
+                                    <p class="text-custom-secondary small mb-0">Proveedor: Herramientas Pro - 150 items</p>
+                                </div>
+                                <small class="text-custom-secondary">Hace 1h</small>
+                            </div>
+                        </div>
+
+                        <div class="activity-item ps-3 py-3 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3">
+                                    <i class="fas fa-exclamation-triangle text-warning"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Stock bajo</h6>
+                                    <p class="text-custom-secondary small mb-0">Clavos 2" - Solo quedan 5 unidades</p>
+                                </div>
+                                <small class="text-custom-secondary">Hace 2h</small>
+                            </div>
+                        </div>
+
+                        <div class="activity-item ps-3 py-3">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3">
+                                    <i class="fas fa-user-plus text-info"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Nuevo cliente registrado</h6>
+                                    <p class="text-custom-secondary small mb-0">Carlos Mendoza - Constructor</p>
+                                </div>
+                                <small class="text-custom-secondary">Hace 3h</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accesos rápidos -->
+        <div class="row g-4">
+            <div class="col-12">
+                <div class="card card-custom">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4">
+                        <h5 class="card-title text-custom-primary mb-0">Accesos Rápidos</h5>
+                        <p class="text-custom-secondary small mb-0">Tareas frecuentes del día a día</p>
+                    </div>
+                    <div class="card-body pt-2">
+                        <div class="row g-3">
+                            <div class="col-6 col-md-3">
+                                <button class="btn btn-outline-primary w-100 py-3">
+                                    <i class="fas fa-plus mb-2 d-block fs-4"></i>
+                                    <small>Nueva Venta</small>
+                                </button>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <button class="btn btn-outline-success w-100 py-3">
+                                    <i class="fas fa-box mb-2 d-block fs-4"></i>
+                                    <small>Agregar Producto</small>
+                                </button>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <button class="btn btn-outline-warning w-100 py-3">
+                                    <i class="fas fa-user-plus mb-2 d-block fs-4"></i>
+                                    <small>Nuevo Cliente</small>
+                                </button>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <button class="btn btn-outline-info w-100 py-3">
+                                    <i class="fas fa-chart-line mb-2 d-block fs-4"></i>
+                                    <small>Ver Reportes</small>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JavaScript global -->
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>
