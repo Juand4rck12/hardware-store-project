@@ -14,7 +14,7 @@ public class SaleDetail {
 
     @ManyToOne
     @JoinColumn(name = "id_sale", referencedColumnName = "id_sale")
-    private Sale id_sale;
+    private Sale sale;
 
     @ManyToOne
     @JoinColumn(name = "id_product", referencedColumnName = "id_product")
@@ -37,12 +37,12 @@ public class SaleDetail {
         this.id_detail = id_detail;
     }
 
-    public Sale getId_sale() {
-        return id_sale;
+    public Sale getSale() {
+        return sale;
     }
 
-    public void setId_sale(Sale id_sale) {
-        this.id_sale = id_sale;
+    public void setSale(Sale sale) {
+        this.sale = sale;
     }
 
     public Product getId_product() {

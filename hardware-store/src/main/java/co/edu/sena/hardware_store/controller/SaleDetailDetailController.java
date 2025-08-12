@@ -34,8 +34,12 @@ public class SaleDetailDetailController {
 
     @PostMapping("/view/saleDetail/save")
     public String save(@ModelAttribute SaleDetail saleDetail, RedirectAttributes ra) {
-        saleDetailRepository.save(saleDetail);
-        ra.addFlashAttribute("success", "Detalle de venta guardada");
+        try {
+            saleDetailRepository.save(saleDetail);
+            ra.addFlashAttribute("success", "Detalle de venta guardada");
+        } catch (Exception e) {
+            ra.addFlashAttribute("Error", "Ocurrio un error al guardar el detalle de venta");
+        }
         return "redirect:/view/saleDetail";
     }
 
@@ -49,8 +53,12 @@ public class SaleDetailDetailController {
 
     @PostMapping("view/saleDetail/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes ra) {
-        saleDetailRepository.deleteById(id);
-        ra.addFlashAttribute("success", "Detalle de venta eliminada");
+        try {
+            saleDetailRepository.deleteById(id);
+            ra.addFlashAttribute("success", "Detalle de venta eliminada");
+        } catch (Exception e) {
+            ra.addFlashAttribute("error", "Error al eliminar el detalle de venta");
+        }
         return "redirect:/view/saleDetail";
     }
 }

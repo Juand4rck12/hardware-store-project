@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Venta - FerreMax</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/636360e29b.js" crossorigin="anonymous"></script>
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<!-- Overlay para mobile -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- Incluir el fragmento del sidebar -->
+<div th:replace="~{fragments/sidebar :: sidebar(currentPage='ventas')}"></div>
+
+<!-- Contenido Principal -->
+<div class="main-content">
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid px-4">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <!-- Botón toggle para mobile -->
+                <button class="sidebar-toggle d-lg-none" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Título de la página -->
+                <h5 class="mb-0 d-none d-md-block text-custom-primary">
+                    <i class="fas fa-cash-register me-2"></i>
+                    Sistema de Ventas POS
+                </h5>
+
+                <!-- Espacio flexible -->
+                <div class="flex-grow-1"></div>
+
+                <!-- Elementos del header -->
+                <div class="d-flex align-items-center gap-3">
+                    <!-- Notificaciones -->
+                    <div class="position-relative">
+                        <button class="btn btn-link text-secondary p-2">
+                            <i class="fas fa-bell fs-5"></i>
+                            <span class="notification-badge"></span>
+                        </button>
+                    </div>
+
+                    <!-- Usuario -->
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="user-avatar d-flex align-items-center justify-content-center"
+                             style="width: 35px; height: 35px;">
+                            <img th:src="@{/images/default-user.png}"
+                                 class="img-fluid rounded-circle"
+                                 alt="Usuario">
+                        </div>
+                        <div class="d-none d-md-block">
+                            <div class="fw-bold text-dark" style="font-size: 0.9rem;">Laura Ramírez</div>
+                            <div class="text-muted" style="font-size: 0.8rem;">Vendedor</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container-fluid py-4">
+        <div class="row">
+            <!-- Sección de productos y búsqueda -->
+            <div class="col-lg-7">
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-header bg-custom-card">
+                        <h6 class="mb-0 text-custom-primary">
+                            <i class="fas fa-search me-2"></i>
+                            Buscar y Agregar Productos
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <!-- Buscador de productos -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-8">
+                                <input type="text" id="productSearch" class="form-control"
+                                       placeholder="Buscar producto por nombre o categoría...">
+                            </div>
+                            <div class="col-md-4">
+                                <select id="categoryFilter" class="form-select">
+                                    <option value="">Todas las categorías</option>
+                                    <option value="Herramientas Eléctricas">Herramientas Eléctricas</option>
+                                    <option value="Herramientas Manuales">Herramientas Manuales</option>
+                                    <option value="Pinturas">Pinturas</option>
+                                    <option value="Electricidad">Electricidad</option>
+                                    <option value="Iluminación">Iluminación</option>
+                                    <option value="Ferretería General">Ferretería General</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Lista de productos disponibles -->
+                        <div class="product-list" style="max-height: 400px; overflow-y: auto;">
+                            <div id="productResults">
+                                <!-- Los productos se cargarán aquí dinámicamente -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección del carrito y resumen -->
+            <div class="col-lg-5">
+                <!-- Información de la venta -->
+                <div class="card shadow-sm border-0 mb-3">
+                    <div class="card-header bg-custom-card">
+                        <h6 class="mb-0 text-custom-primary">
+                            <i class="fas fa-receipt me-2"></i>
+                            Información de la Venta
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">
+                                    <i class="fas fa-user me-1"></i>
+                                    Cliente:
+                                </label>
+                                <select id="customerId" class="form-select" required>
+                                    <option value="">Seleccionar cliente</option>
+                                    <option value="1">Juan Pérez García (10000000)</option>
+                                    <option value="2">María López Rodríguez (10000001)</option>
+                                    <option value="3">Carlos Gómez Torres (10000002)</option>
+                                    <option value="4">Ana Martínez Castro (10000003)</option>
+                                    <option value="5">Luis González Díaz (10000004)</option>
+                                    <option value="6">Sofía Hernández Ríos (10000005)</option>
+                                    <option value="7">Diego Sánchez Mejía (10000006)</option>
+                                    <option value="8">Valentina Romero Guzmán (10000007)</option>
+                                    <option value="9">Javier Acosta Pinto (10000008)</option>
+                                    <option value="10">Camila Torres Salazar (10000009)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">
+                                    <i class="fas fa-user-tie me-1"></i>
+                                    Vendedor:
+                                </label>
+                                <input type="text" class="form-control" value="Laura Ramírez" readonly>
+                                <input type="hidden" id="employeeId" value="2">
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-1">
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">
+                                    <i class="fas fa-calendar me-1"></i>
+                                    Fecha:
+                                </label>
+                                <input type="text" class="form-control" id="saleDate" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium">
+                                    <i class="fas fa-clock me-1"></i>
+                                    Hora:
+                                </label>
+                                <input type="text" class="form-control" id="saleTime" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carrito de compras -->
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-custom-card d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0 text-custom-primary">
+                            <i class="fas fa-shopping-cart me-2"></i>
+                            Carrito de Compras
+                        </h6>
+                        <span id="itemCount" class="badge bg-secondary">0 productos</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <div id="cartItems" style="max-height: 300px; overflow-y: auto;">
+                            <div class="text-center text-muted p-4">
+                                <i class="fas fa-shopping-cart fa-2x mb-2"></i>
+                                <p class="mb-0">No hay productos en el carrito</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <!-- Resumen de totales -->
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <div class="d-flex justify-content-between">
+                                    <span class="text-muted">Subtotal:</span>
+                                    <span id="subtotal">$0</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex justify-content-between">
+                                    <span class="text-muted">IVA (19%):</span>
+                                    <span id="iva">$0</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-2">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="mb-0 text-custom-primary">Total:</h6>
+                            <h5 class="mb-0 text-custom-primary" id="totalAmount">$0</h5>
+                        </div>
+
+                        <!-- Botones de acción -->
+                        <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-add-product" id="processPaymentBtn" disabled>
+                                <i class="fas fa-credit-card me-2"></i>
+                                Procesar Pago
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="clearCart()">
+                                <i class="fas fa-trash me-2"></i>
+                                Limpiar Carrito
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón de regreso -->
+        <div class="row mt-3">
+            <div class="col-12">
+                <a th:href="@{/view/sale}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Volver a Ventas
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div>
+
+<!-- Modal de Pago -->
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-custom-card">
+                <h5 class="modal-title text-custom-primary" id="paymentModalLabel">
+                    <i class="fas fa-cash-register me-2"></i>
+                    Procesar Pago
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Resumen de la venta -->
+                <div class="alert alert-info">
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Total a Pagar:</strong>
+                        </div>
+                        <div class="col-6 text-end">
+                            <strong id="paymentTotal">$0</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campo de pago -->
+                <div class="mb-3">
+                    <label for="amountReceived" class="form-label fw-medium">
+                        <i class="fas fa-money-bill-wave me-2"></i>
+                        Monto Recibido:
+                    </label>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control" id="amountReceived"
+                               placeholder="0" min="0" step="1">
+                    </div>
+                    <div class="invalid-feedback" id="paymentError">
+                        El monto debe ser mayor o igual al total.
+                    </div>
+                </div>
+
+                <!-- Cambio -->
+                <div class="alert alert-success d-none" id="changeAlert">
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Cambio a Devolver:</strong>
+                        </div>
+                        <div class="col-6 text-end">
+                            <strong id="changeAmount">$0</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>
+                    Cancelar
+                </button>
+                <button type="button" class="btn btn-add-product" id="completeSaleBtn" disabled>
+                    <i class="fas fa-check me-2"></i>
+                    Completar Venta
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Confirmación de Venta -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="confirmationModalLabel">
+                    <i class="fas fa-check-circle me-2"></i>
+                    Venta Completada
+                </h5>
+            </div>
+            <div class="modal-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-check-circle text-success fa-3x mb-3"></i>
+                    <h4>¡Venta registrada exitosamente!</h4>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <strong>No. de Venta:</strong>
+                    </div>
+                    <div class="col-6">
+                        <span id="saleNumber">#000</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <strong>Total:</strong>
+                    </div>
+                    <div class="col-6">
+                        <span id="finalTotal">$0</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <strong>Cambio:</strong>
+                    </div>
+                    <div class="col-6">
+                        <span id="finalChange">$0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-add-product" onclick="window.location.href='/view/sale'">
+                    <i class="fas fa-list me-2"></i>
+                    Ver Ventas
+                </button>
+                <button type="button" class="btn btn-outline-secondary" onclick="startNewSale()">
+                    <i class="fas fa-plus me-2"></i>
+                    Nueva Venta
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JavaScript para funcionalidades de la aplicación -->
+<script th:src="@{/js/script.js}"></script>
+
+<script>
+// Variables globales
+let cart = [];
+let products = [];
+let currentTotal = 0;
+
+// Productos de ejemplo basados en la base de datos
+const sampleProducts = [
+    {id: 1, name: "Taladro Inalámbrico 12V", category: "Herramientas Eléctricas", price: 250000, stock: 25},
+    {id: 2, name: "Pintura Látex Blanca 4L", category: "Pinturas", price: 85000, stock: 50},
+    {id: 3, name: "Cinta Métrica 5m", category: "Herramientas Manuales", price: 25000, stock: 103},
+    {id: 4, name: "Kit de Destornilladores", category: "Herramientas Manuales", price: 45000, stock: 40},
+    {id: 5, name: "Cable Eléctrico 10 AWG", category: "Electricidad", price: 35000, stock: 200},
+    {id: 6, name: "Bombillo LED 12W", category: "Iluminación", price: 15000, stock: 150},
+    {id: 7, name: "Lija Grano 120", category: "Ferretería General", price: 5000, stock: 300},
+    {id: 8, name: "Clavos de Acero 2\"", category: "Ferretería General", price: 8000, stock: 1000},
+    {id: 9, name: "Martillo Carpintero", category: "Herramientas Manuales", price: 32000, stock: 30},
+    {id: 10, name: "Tornillo Hexagonal 1/2\"", category: "Ferretería General", price: 12000, stock: 500}
+];
+
+// Inicializar la aplicación
+document.addEventListener('DOMContentLoaded', function() {
+    products = sampleProducts;
+    updateDateTime();
+    displayProducts(products);
+
+    // Actualizar fecha y hora cada segundo
+    setInterval(updateDateTime, 1000);
+
+    // Event listeners
+    document.getElementById('productSearch').addEventListener('input', filterProducts);
+    document.getElementById('categoryFilter').addEventListener('change', filterProducts);
+    document.getElementById('processPaymentBtn').addEventListener('click', openPaymentModal);
+    document.getElementById('amountReceived').addEventListener('input', calculateChange);
+    document.getElementById('completeSaleBtn').addEventListener('click', completeSale);
+});
+
+// Actualizar fecha y hora
+function updateDateTime() {
+    const now = new Date();
+    document.getElementById('saleDate').value = now.toLocaleDateString('es-CO');
+    document.getElementById('saleTime').value = now.toLocaleTimeString('es-CO');
+}
+
+// Mostrar productos
+function displayProducts(productsToShow) {
+    const container = document.getElementById('productResults');
+    container.innerHTML = '';
+
+    if (productsToShow.length === 0) {
+        container.innerHTML = '<div class="text-center text-muted p-3">No se encontraron productos</div>';
+        return;
+    }
+
+    productsToShow.forEach(product => {
+        const stockStatus = product.stock <= 10 ? 'text-danger' : product.stock <= 50 ? 'text-warning' : 'text-success';
+
+        container.innerHTML += `
+            <div class="border rounded p-3 mb-2 product-item" style="cursor: pointer;" onclick="addToCart(${product.id})">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <h6 class="mb-1">${product.name}</h6>
+                        <small class="text-muted">${product.category}</small>
+                        <div class="mt-1">
+                            <span class="fw-bold text-custom-primary">$${product.price.toLocaleString('es-CO')}</span>
+                        </div>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div class="mb-1">
+                            <small class="${stockStatus}">
+                                <i class="fas fa-cubes me-1"></i>
+                                ${product.stock} disponibles
+                            </small>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary" onclick="event.stopPropagation(); addToCart(${product.id})">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+}
+
+// Filtrar productos
+function filterProducts() {
+    const searchTerm = document.getElementById('productSearch').value.toLowerCase();
+    const categoryFilter = document.getElementById('categoryFilter').value;
+
+    let filteredProducts = products.filter(product => {
+        const matchesSearch = product.name.toLowerCase().includes(searchTerm) ||
+                             product.category.toLowerCase().includes(searchTerm);
+        const matchesCategory = !categoryFilter || product.category === categoryFilter;
+
+        return matchesSearch && matchesCategory;
+    });
+
+    displayProducts(filteredProducts);
+}
+
+// Agregar producto al carrito
+function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    const existingItem = cart.find(item => item.productId === productId);
+
+    if (existingItem) {
+        if (existingItem.quantity < product.stock) {
+            existingItem.quantity++;
+            existingItem.subtotal = existingItem.quantity * product.price;
+        } else {
+            alert('No hay suficiente stock disponible');
+            return;
+        }
+    } else {
+        if (product.stock > 0) {
+            cart.push({
+                productId: product.id,
+                name: product.name,
+                price: product.price,
+                quantity: 1,
+                subtotal: product.price,
+                maxStock: product.stock
+            });
+        } else {
+            alert('Producto sin stock');
+            return;
+        }
+    }
+
+    updateCartDisplay();
+}
+
+// Actualizar visualización del carrito
+function updateCartDisplay() {
+    const container = document.getElementById('cartItems');
+    const itemCount = document.getElementById('itemCount');
+    const processBtn = document.getElementById('processPaymentBtn');
+
+    if (cart.length === 0) {
+        container.innerHTML = `
+            <div class="text-center text-muted p-4">
+                <i class="fas fa-shopping-cart fa-2x mb-2"></i>
+                <p class="mb-0">No hay productos en el carrito</p>
+            </div>
+        `;
+        itemCount.textContent = '0 productos';
+        processBtn.disabled = true;
+    } else {
+        container.innerHTML = '';
+        cart.forEach((item, index) => {
+            container.innerHTML += `
+                <div class="border-bottom p-3">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">${item.name}</h6>
+                            <small class="text-muted">$${item.price.toLocaleString('es-CO')} c/u</small>
+                        </div>
+                        <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart(${index})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    <div class="row align-items-center mt-2">
+                        <div class="col-6">
+                            <div class="input-group input-group-sm">
+                                <button class="btn btn-outline-secondary" onclick="updateQuantity(${index}, -1)">-</button>
+                                <input type="number" class="form-control text-center"
+                                       value="${item.quantity}" min="1" max="${item.maxStock}"
+                                       onchange="setQuantity(${index}, this.value)">
+                                <button class="btn btn-outline-secondary" onclick="updateQuantity(${index}, 1)">+</button>
+                            </div>
+                            <small class="text-muted">Máx: ${item.maxStock}</small>
+                        </div>
+                        <div class="col-6 text-end">
+                            <strong>$${item.subtotal.toLocaleString('es-CO')}</strong>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        itemCount.textContent = `${totalItems} producto${totalItems !== 1 ? 's' : ''}`;
+        processBtn.disabled = false;
+    }
+
+    updateTotals();
+}
+
+// Actualizar cantidad
+function updateQuantity(index, change) {
+    const item = cart[index];
+    const newQuantity = item.quantity + change;
+
+    if (newQuantity > 0 && newQuantity <= item.maxStock) {
+        item.quantity = newQuantity;
+        item.subtotal = item.quantity * item.price;
+        updateCartDisplay();
+    }
+}
+
+// Establecer cantidad específica
+function setQuantity(index, newQuantity) {
+    const item = cart[index];
+    const quantity = parseInt(newQuantity);
+
+    if (quantity > 0 && quantity <= item.maxStock) {
+        item.quantity = quantity;
+        item.subtotal = item.quantity * item.price;
+        updateCartDisplay();
+    }
+}
+
+// Remover del carrito
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartDisplay();
+}
+
+// Limpiar carrito
+function clearCart() {
+    if (cart.length > 0 && confirm('¿Estás seguro de que deseas limpiar el carrito?')) {
+        cart = [];
+        updateCartDisplay();
+    }
+}
+
+// Actualizar totales
+function updateTotals() {
+    const subtotal = cart.reduce((sum, item) => sum + item.subtotal, 0);
+    const iva = Math.round(subtotal * 0.19);
+    const total = subtotal + iva;
+
+    document.getElementById('subtotal').textContent = `$${subtotal.toLocaleString('es-CO')}`;
+    document.getElementById('iva').textContent = `$${iva.toLocaleString('es-CO')}`;
+    document.getElementById('totalAmount').textContent = `$${total.toLocaleString('es-CO')}`;
+
+    currentTotal = total;
+}
+
+// Abrir modal de pago
+function openPaymentModal() {
+    const customerId = document.getElementById('customerId').value;
+    if (!customerId) {
+        alert('Por favor selecciona un cliente');
+        return;
+    }
+
+    document.getElementById('paymentTotal').textContent = `$${currentTotal.toLocaleString('es-CO')}`;
+    document.getElementById('amountReceived').value = '';
+    document.getElementById('changeAlert').classList.add('d-none');
+    document.getElementById('completeSaleBtn').disabled = true;
+
+    const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+    paymentModal.show();
+}
+
+// Calcular cambio
+function calculateChange() {
+    const amountReceived = parseFloat(document.getElementById('amountReceived').value) || 0;
+    const changeAlert = document.getElementById('changeAlert');
+    const changeAmount = document.getElementById('changeAmount');
+    const completeSaleBtn = document.getElementById('completeSaleBtn');
+    const paymentError = document.getElementById('paymentError');
+    const amountInput = document.getElementById('amountReceived');
+
+    if (amountReceived >= currentTotal) {
+        const change = amountReceived - currentTotal;
+        changeAmount.textContent = `$${change.toLocaleString('es-CO')}`;
+        changeAlert.classList.remove('d-none');
+        completeSaleBtn.disabled = false;
+        amountInput.classList.remove('is-invalid');
+    } else {
+        changeAlert.classList.add('d-none');
+        completeSaleBtn.disabled = true;
+        if (amountReceived > 0) {
+            amountInput.classList.add('is-invalid');
+        } else {
+            amountInput.classList.remove('is-invalid');
+        }
+    }
+}
+
+// Completar venta
+function completeSale() {
+    const customerId = document.getElementById('customerId').value;
+    const employeeId = document.getElementById('employeeId').value;
+    const amountReceived = parseFloat(document.getElementById('amountReceived').value);
+    const change = amountReceived - currentTotal;
+
+    // Preparar datos de la venta
+    const saleData = {
+        id_customer: customerId,
+        id_employee: employeeId,
+        total_amount: currentTotal,
+        sale_details: cart.map(item => ({
+            id_product: item.productId,
+            quantity: item.quantity,
+            unit_price: item.price,
+            subtotal: item.subtotal
+        }))
+    };
+
+    // Simular envío al servidor
+    console.log('Datos de la venta:', saleData);
+
+    // Aquí harías la llamada al servidor:
+    // fetch('/view/sale/save', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(saleData)
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //     showConfirmation(data.saleId, currentTotal, change);
+    // });
+
+    // Por ahora, simulamos una respuesta exitosa
+    setTimeout(() => {
+        const saleId = Math.floor(Math.random() * 1000) + 1;
+        showConfirmation(saleId, currentTotal, change);
+    }, 1000);
+}
+
+// Mostrar confirmación de venta
+function showConfirmation(saleId, total, change) {
+    // Cerrar modal de pago
+    const paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+    paymentModal.hide();
+
+    // Actualizar datos en el modal de confirmación
+    document.getElementById('saleNumber').textContent = `#${saleId.toString().padStart(3, '0')}`;
+    document.getElementById('finalTotal').textContent = `${total.toLocaleString('es-CO')}`;
+    document.getElementById('finalChange').textContent = `${change.toLocaleString('es-CO')}`;
+
+    // Mostrar modal de confirmación
+    const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+    confirmationModal.show();
+
+    // Limpiar el carrito
+    cart = [];
+    updateCartDisplay();
+
+    // Limpiar selección de cliente
+    document.getElementById('customerId').value = '';
+}
+
+// Iniciar nueva venta
+function startNewSale() {
+    // Cerrar modal de confirmación
+    const confirmationModal = bootstrap.Modal.getInstance(document.getElementById('confirmationModal'));
+    if (confirmationModal) {
+        confirmationModal.hide();
+    }
+
+    // Limpiar todo
+    cart = [];
+    updateCartDisplay();
+    document.getElementById('customerId').value = '';
+    document.getElementById('productSearch').value = '';
+    document.getElementById('categoryFilter').value = '';
+    displayProducts(products);
+}
+
+// Estilos adicionales para mejorar la experiencia
+const additionalStyles = `
+<style>
+.product-item {
+    transition: all 0.2s ease;
+    border: 1px solid var(--border-light) !important;
+}
+
+.product-item:hover {
+    background-color: var(--bg-card);
+    border-color: var(--accent-color) !important;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-hover);
+}
+
+.cart-item {
+    transition: background-color 0.2s ease;
+}
+
+.cart-item:hover {
+    background-color: var(--bg-card);
+}
+
+.input-group-sm .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.input-group-sm .form-control {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.modal-content {
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--border-light);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border-light);
+}
+
+/* Animación para el contador de productos */
+#itemCount {
+    transition: all 0.3s ease;
+}
+
+/* Estilos para estados de validación */
+.is-invalid {
+    border-color: var(--error-color) !important;
+    background-image: none;
+}
+
+.invalid-feedback {
+    color: var(--error-color);
+    font-size: 0.875rem;
+    display: block;
+}
+
+/* Mejorar la apariencia de los alertas */
+.alert {
+    border: none;
+    border-radius: 8px;
+}
+
+.alert-info {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #1E40AF;
+}
+
+.alert-success {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #166534;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1rem;
+    }
+
+    .product-item {
+        margin-bottom: 0.5rem;
+    }
+
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+}
+
+/* Estilos para números grandes */
+.display-4 {
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+/* Animación suave para cambios en el carrito */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.cart-item-enter {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Mejorar botones */
+.btn {
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Mejorar el aspecto del buscador */
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.25rem rgba(249, 115, 22, 0.25);
+}
+
+/* Estados de stock */
+.text-danger {
+    color: var(--error-color) !important;
+}
+
+.text-warning {
+    color: var(--warning-color) !important;
+}
+
+.text-success {
+    color: var(--success-color) !important;
+}
+</style>
+`;
+
+// Agregar estilos adicionales al head
+document.head.insertAdjacentHTML('beforeend', additionalStyles);
+</script>
+
+</body>
+</html>
