@@ -47,25 +47,68 @@ document.addEventListener("DOMContentLoaded", function() {
     }, false);
 })();
 
-// Script para formato automático del documento (guardado por si no existe el input)
-(function() {
-    const docInput = document.getElementById('document');
-    if (docInput) {
-        docInput.addEventListener('input', function(e) {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
+// Formateo automático para campos de dinero
+function formatCurrency(input) {
+    let value = input.value.replace(/[^0-9]/g, ''); // Solo números
+    if (value === '') {
+        input.value = '';
+        return;
     }
 
-    const salaryInput = document.getElementById('salary');
-    if (salaryInput) {
-        salaryInput.addEventListener('input', function(e) {
-            this.value = this.value.replace(/[^0-9.]/g, '');
-            const parts = this.value.split('.');
-            if (parts.length > 2) {
-                this.value = parts[0] + '.' + parts.slice(1).join('');
+    // Formatear con puntos cada 3 dígitos
+    const formatted = new Intl.NumberFormat('es-CO').format(parseInt(value));
+    input.value = formatted;
+
+    // Guardar el valor limpio en un atributo data
+    input.dataset.cleanValue = value;
+}
+
+// Función para limpiar valores antes de envío
+function cleanCurrencyInputs(form) {
+    const currencyInputs = form.querySelectorAll('input[data-currency]');
+    currencyInputs.forEach(input => {
+        if (input.dataset.cleanValue) {
+            input.value = input.dataset.cleanValue;
+        }
+    });
+}
+
+// Inicialización automática de campos de dinero y documento
+(function() {
+    window.addEventListener('load', function() {
+        // Formateo para documentos (solo números)
+        const docInputs = document.querySelectorAll('input[type="number"][name*="document"], input[data-document]');
+        docInputs.forEach(input => {
+            input.addEventListener('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+        });
+
+        // Formateo para campos de dinero
+        const currencyInputs = document.querySelectorAll('input[name*="salary"], input[data-currency]');
+        currencyInputs.forEach(input => {
+            // Marcar como campo de dinero
+            input.dataset.currency = 'true';
+
+            // Formatear en tiempo real
+            input.addEventListener('input', function() {
+                formatCurrency(this);
+            });
+
+            // Formatear valor inicial si existe
+            if (input.value) {
+                formatCurrency(input);
             }
         });
-    }
+
+        // Limpiar campos de dinero antes de envío del formulario
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function() {
+                cleanCurrencyInputs(this);
+            });
+        });
+    });
 })();
 
 // ################## SISTEMA DE NOTIFICACIONES Y CONFIRMACIONES ##################
