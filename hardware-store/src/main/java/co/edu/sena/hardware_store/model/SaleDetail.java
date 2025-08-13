@@ -23,11 +23,11 @@ public class SaleDetail {
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
-    @Column(name = "unit_price", precision = 10, scale = 2, nullable = false)
-    private BigDecimal unit_price;
+    @Column(name = "unit_price", nullable = false)
+    private Long unit_price;
 
-    @Column(name = "subtotal", precision = 10, scale = 2, nullable = false)
-    private BigDecimal subtotal;
+    @Column(name = "subtotal", nullable = false)
+    private Long subtotal;
 
     public Long getId_detail() {
         return id_detail;
@@ -61,19 +61,19 @@ public class SaleDetail {
         this.quantity = quantity;
     }
 
-    public BigDecimal getUnit_price() {
+    public Long getUnit_price() {
         return unit_price;
     }
 
-    public void setUnit_price(BigDecimal unit_price) {
+    public void setUnit_price(Long unit_price) {
         this.unit_price = unit_price;
     }
 
-    public BigDecimal getSubtotal() {
+    public Long getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(BigDecimal subtotal) {
+    public void setSubtotal(Long subtotal) {
         this.subtotal = subtotal;
     }
 }
