@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "sale")
@@ -26,6 +28,17 @@ public class Sale {
 
     @Column(name = "sale_date", nullable = false)
     private LocalDateTime sale_date;
+
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SaleDetail> saleDetails = new ArrayList<>();
+
+    public List<SaleDetail> getSaleDetails() {
+        return saleDetails;
+    }
+
+    public void setSaleDetails(List<SaleDetail> saleDetails) {
+        this.saleDetails = saleDetails;
+    }
 
     public Long getId() {
         return id;
