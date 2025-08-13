@@ -21,8 +21,8 @@ public class Employee {
     @Column(name = "position", nullable = false, length = 50)
     private String position;
 
-    @Column(name = "salary", precision = 10, scale = 2, nullable = false)
-    private BigDecimal salary;
+    @Column(name = "salary", nullable = false)
+    private Long salary;
 
     @Column(name = "role", nullable = false, length = 20)
     private String role;
@@ -59,11 +59,11 @@ public class Employee {
         this.position = position;
     }
 
-    public BigDecimal getSalary() {
+    public Long getSalary() {
         return salary;
     }
 
-    public void setSalary(BigDecimal salary) {
+    public void setSalary(Long salary) {
         this.salary = salary;
     }
 
