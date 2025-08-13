@@ -81,7 +81,7 @@ public class SaleController {
         try {
             Sale sale = new Sale();
             Customer customer = customerRepository.findById(payload.getCustomerId()).orElseThrow(() -> new RuntimeException("Customer not found"));
-            Employee employee = employeeRepository.findById(1).orElseThrow(() -> new RuntimeException("Employee not found")); // Hardcoded employee ID 1
+            Employee employee = employeeRepository.findById(1L).orElseThrow(() -> new RuntimeException("Employee not found")); // Hardcoded employee ID 1
             sale.setId_customer(customer);
             sale.setId_employee(employee);
             sale.setSale_date(LocalDateTime.now());
@@ -104,7 +104,7 @@ public class SaleController {
                 saleDetail.setQuantity(detailPayload.getQuantity());
                 saleDetail.setUnit_price(product.getPrice());
                 double subtotal = product.getPrice() * detailPayload.getQuantity();
-                saleDetail.setSubtotal(subtotal);
+                saleDetail.setSubtotal((long) subtotal);
                 total += subtotal;
                 sale.getSaleDetails().add(saleDetail);
             }
