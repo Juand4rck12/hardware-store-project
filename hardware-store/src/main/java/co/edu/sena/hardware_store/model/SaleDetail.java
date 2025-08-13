@@ -14,7 +14,7 @@ public class SaleDetail {
 
     @ManyToOne
     @JoinColumn(name = "id_sale", referencedColumnName = "id_sale")
-    private Sale id_sale;
+    private Sale sale;
 
     @ManyToOne
     @JoinColumn(name = "id_product", referencedColumnName = "id_product")
@@ -23,11 +23,11 @@ public class SaleDetail {
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
-    @Column(name = "unit_price", precision = 10, scale = 2, nullable = false)
-    private BigDecimal unit_price;
+    @Column(name = "unit_price", nullable = false)
+    private Long unit_price;
 
-    @Column(name = "subtotal", precision = 10, scale = 2, nullable = false)
-    private BigDecimal subtotal;
+    @Column(name = "subtotal", nullable = false)
+    private Long subtotal;
 
     public Long getId_detail() {
         return id_detail;
@@ -37,12 +37,12 @@ public class SaleDetail {
         this.id_detail = id_detail;
     }
 
-    public Sale getId_sale() {
-        return id_sale;
+    public Sale getSale() {
+        return sale;
     }
 
-    public void setId_sale(Sale id_sale) {
-        this.id_sale = id_sale;
+    public void setSale(Sale sale) {
+        this.sale = sale;
     }
 
     public Product getId_product() {
@@ -61,19 +61,19 @@ public class SaleDetail {
         this.quantity = quantity;
     }
 
-    public BigDecimal getUnit_price() {
+    public Long getUnit_price() {
         return unit_price;
     }
 
-    public void setUnit_price(BigDecimal unit_price) {
+    public void setUnit_price(Long unit_price) {
         this.unit_price = unit_price;
     }
 
-    public BigDecimal getSubtotal() {
+    public Long getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(BigDecimal subtotal) {
+    public void setSubtotal(Long subtotal) {
         this.subtotal = subtotal;
     }
 }

@@ -145,89 +145,73 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // ################## Graficos para home ##################
-// Funcionalidad del sidebar móvil
-    const sidebarToggle = document.getElementById('sidebarToggle');
-    const sidebar = document.getElementById('sidebar');
-    const sidebarOverlay = document.getElementById('sidebarOverlay');
-
-    sidebarToggle?.addEventListener('click', () => {
-        sidebar.classList.toggle('show');
-        sidebarOverlay.classList.toggle('show');
-    });
-
-    sidebarOverlay?.addEventListener('click', () => {
-        sidebar.classList.remove('show');
-        sidebarOverlay.classList.remove('show');
-    });
-
-    // Gráfico de ventas
-    const salesCtx = document.getElementById('salesChart').getContext('2d');
-    new Chart(salesCtx, {
-        type: 'line',
-        data: {
-            labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
-            datasets: [{
-                label: 'Esta Semana',
-                data: [1200000, 1900000, 800000, 2100000, 1600000, 2400000, 1800000],
-                borderColor: '#F97316',
-                backgroundColor: 'rgba(249, 115, 22, 0.1)',
-                tension: 0.4,
-                fill: true
-            }, {
-                label: 'Semana Anterior',
-                data: [1000000, 1700000, 900000, 1800000, 1400000, 2000000, 1500000],
-                borderColor: '#CBD5E1',
-                backgroundColor: 'transparent',
-                tension: 0.4,
-                fill: false
-            }]
+const salesCtx = document.getElementById('salesChart').getContext('2d');
+new Chart(salesCtx, {
+    type: 'line',
+    data: {
+        labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+        datasets: [{
+            label: 'Esta Semana',
+            data: [1200000, 1900000, 800000, 2100000, 1600000, 2400000, 1800000],
+            borderColor: '#F97316',
+            backgroundColor: 'rgba(249, 115, 22, 0.1)',
+            tension: 0.4,
+            fill: true
+        }, {
+            label: 'Semana Anterior',
+            data: [1000000, 1700000, 900000, 1800000, 1400000, 2000000, 1500000],
+            borderColor: '#CBD5E1',
+            backgroundColor: 'transparent',
+            tension: 0.4,
+            fill: false
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'top',
+            }
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'top',
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        callback: function(value) {
-                            return '$' + (value / 1000000).toFixed(1) + 'M';
-                        }
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    callback: function(value) {
+                        return '$' + (value / 1000000).toFixed(1) + 'M';
                     }
                 }
             }
         }
-    });
+    }
+});
 
-    // Gráfico de stock por categoría
-    const stockCtx = document.getElementById('stockChart').getContext('2d');
-    new Chart(stockCtx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Herramientas', 'Pinturas', 'Tornillería', 'Eléctricos', 'Plomería'],
-            datasets: [{
-                data: [35, 25, 20, 12, 8],
-                backgroundColor: [
-                    '#F97316',
-                    '#5BBE83',
-                    '#F9AA33',
-                    '#3B82F6',
-                    '#8B5CF6'
-                ],
-                borderWidth: 0
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                }
+// Gráfico de stock por categoría
+const stockCtx = document.getElementById('stockChart').getContext('2d');
+new Chart(stockCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Herramientas', 'Pinturas', 'Tornillería', 'Eléctricos', 'Plomería'],
+        datasets: [{
+            data: [35, 25, 20, 12, 8],
+            backgroundColor: [
+                '#F97316',
+                '#5BBE83',
+                '#F9AA33',
+                '#3B82F6',
+                '#8B5CF6'
+            ],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
             }
         }
-    });
+    }
+});

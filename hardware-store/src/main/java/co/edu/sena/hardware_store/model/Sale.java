@@ -3,6 +3,7 @@ package co.edu.sena.hardware_store.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "sale")
@@ -10,7 +11,7 @@ public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_sale", nullable = false)
-    private Long id_sale;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_customer", referencedColumnName = "id_customer")
@@ -20,15 +21,18 @@ public class Sale {
     @JoinColumn(name = "id_employee", referencedColumnName = "id_employee")
     private Employee id_employee;
 
-    @Column(name = "total_amount", precision = 10, scale = 2, nullable = false)
-    private BigDecimal total_amount;
+    @Column(name = "total_amount", nullable = false)
+    private Long total_amount;
 
-    public Long getId_sale() {
-        return id_sale;
+    @Column(name = "sale_date", nullable = false)
+    private LocalDateTime sale_date;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setId_sale(Long id_sale) {
-        this.id_sale = id_sale;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Customer getId_customer() {
@@ -47,11 +51,19 @@ public class Sale {
         this.id_employee = id_employee;
     }
 
-    public BigDecimal getTotal_amount() {
+    public Long getTotal_amount() {
         return total_amount;
     }
 
-    public void setTotal_amount(BigDecimal total_amount) {
+    public void setTotal_amount(Long total_amount) {
         this.total_amount = total_amount;
+    }
+
+    public LocalDateTime getSale_date() {
+        return sale_date;
+    }
+
+    public void setSale_date(LocalDateTime sale_date) {
+        this.sale_date = sale_date;
     }
 }
