@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración - FerreMax</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/636360e29b.js" crossorigin="anonymous"></script>
+
+    <!--  SweetAlert2  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<!-- Overlay para mobile -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- Incluir el fragmento del sidebar pasando el parámetro currentPage -->
+<div th:replace="~{fragments/sidebar :: sidebar(currentPage='configuracion')}"></div>
+
+<!-- Contenido Principal -->
+<div class="main-content">
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid px-4">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <!-- Botón toggle para mobile -->
+                <button class="sidebar-toggle d-lg-none" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Espacio flexible -->
+                <div class="flex-grow-1"></div>
+
+                <!-- Elementos del header -->
+                <div class="d-flex align-items-center gap-3">
+                    <!-- Notificaciones -->
+                    <div class="position-relative">
+                        <button class="btn btn-link text-secondary p-2">
+                            <i class="fas fa-bell fs-5"></i>
+                            <span class="notification-badge"></span>
+                        </button>
+                    </div>
+
+                    <!-- Usuario -->
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="user-avatar d-flex align-items-center justify-content-center"
+                             style="width: 35px; height: 35px;">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div class="d-none d-md-block">
+                            <div class="fw-bold text-dark" style="font-size: 0.9rem;">Juan Administrador</div>
+                            <div class="text-muted" style="font-size: 0.8rem;">Gerente General</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content Header -->
+    <div class="content-header py-4 px-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+            <div>
+                <h2 class="mb-1 fw-bold text-custom-primary">Configuración del Sistema</h2>
+                <p class="text-muted mb-0">Personaliza tu experiencia y configuración de cuenta</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configuraciones -->
+    <div class="p-4">
+        <div class="row g-4">
+            <!-- Configuración de Perfil -->
+            <div class="col-12">
+                <div class="card config-section shadow-sm">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <div class="config-icon bg-primary text-white">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <h5 class="mb-1 fw-bold text-custom-primary">Información del Perfil</h5>
+                                <p class="text-muted mb-0">Actualiza tu información personal y de contacto</p>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-edit me-2"></i>
+                                    Modificar
+                                </button>
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-custom-secondary">Nombre de Usuario</label>
+                                    <div class="form-control bg-light border-0">
+                                        <span class="fw-medium">juan.administrador</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-custom-secondary">Nombre Completo</label>
+                                    <div class="form-control bg-light border-0">
+                                        <span class="fw-medium">Juan Carlos Administrador López</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-custom-secondary">Posición</label>
+                                    <div class="form-control bg-light border-0">
+                                        <span class="fw-medium">Gerente General</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-custom-secondary">Última Conexión</label>
+                                    <div class="form-control bg-light border-0">
+                                        <span class="fw-medium">12 de Agosto, 2024 - 09:45 AM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cambiar Correo Electrónico -->
+            <div class="col-12">
+                <div class="card config-section shadow-sm">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <div class="config-icon text-white" style="background: var(--success-color);">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <h5 class="mb-1 fw-bold text-custom-primary">Correo Electrónico</h5>
+                                <p class="text-muted mb-0">Actualiza tu dirección de correo electrónico</p>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-edit me-2"></i>
+                                    Cambiar
+                                </button>
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-custom-secondary">Correo Actual</label>
+                                    <div class="form-control bg-light border-0 d-flex align-items-center gap-2">
+                                        <span class="fw-medium">juan.administrador@ferremax.com</span>
+                                        <span class="badge bg-success ms-auto">Verificado</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-custom-secondary">Estado</label>
+                                    <div class="form-control bg-light border-0">
+                                        <span class="text-success fw-medium">
+                                            <i class="fas fa-check-circle me-1"></i>
+                                            Activo
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cambiar Contraseña -->
+            <div class="col-12">
+                <div class="card config-section shadow-sm">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <div class="config-icon text-white" style="background: var(--warning-color);">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <h5 class="mb-1 fw-bold text-custom-primary">Seguridad y Contraseña</h5>
+                                <p class="text-muted mb-0">Mantén tu cuenta segura actualizando tu contraseña</p>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-key me-2"></i>
+                                    Cambiar Contraseña
+                                </button>
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-custom-secondary">Último Cambio</label>
+                                    <div class="form-control bg-light border-0">
+                                        <span class="fw-medium">15 de Julio, 2024</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold text-custom-secondary">Seguridad</label>
+                                    <div class="form-control bg-light border-0">
+                                        <span class="text-success fw-medium">
+                                            <i class="fas fa-shield-alt me-1"></i>
+                                            Contraseña Segura
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-info border-0 bg-light">
+                            <div class="d-flex align-items-center gap-3">
+                                <i class="fas fa-info-circle text-info"></i>
+                                <div>
+                                    <strong>Recomendación de Seguridad:</strong>
+                                    <p class="mb-0 text-muted">Se recomienda cambiar la contraseña cada 90 días y usar una combinación de letras, números y símbolos.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Configuraciones del Sistema -->
+            <div class="col-12">
+                <div class="card config-section shadow-sm">
+                    <div class="card-body">
+                        <div class="row align-items-center mb-4">
+                            <div class="col-auto">
+                                <div class="config-icon text-white" style="background: var(--error-color);">
+                                    <i class="fas fa-cogs"></i>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <h5 class="mb-1 fw-bold text-custom-primary">Configuraciones Generales</h5>
+                                <p class="text-muted mb-0">Personaliza la experiencia del sistema</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card bg-light border-0">
+                                    <div class="card-body">
+                                        <h6 class="fw-semibold mb-3">Preferencias de Notificación</h6>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                            <label class="form-check-label">Notificaciones por email</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                            <label class="form-check-label">Alertas de stock bajo</label>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox">
+                                            <label class="form-check-label">Reportes semanales</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" >
+                                <div class="card bg-light border-0">
+                                    <div class="card-body">
+                                        <h6 class="fw-semibold mb-3">Configuración de Sesión</h6>
+                                        <div class="mb-3">
+                                            <label class="form-label">Tiempo de sesión</label>
+                                            <select class="form-select">
+                                                <option>30 minutos</option>
+                                                <option selected>1 hora</option>
+                                                <option>2 horas</option>
+                                                <option>4 horas</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                            <label class="form-check-label">Recordar sesión</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- fragmento de SweetAlert -->
+    <div th:replace="~{fragments/sweet-alert :: sweet-alert}"></div>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- JavaScript para sidebar responsive -->
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<div class="modal-header">
+    <h5 class="modal-title">Detalle de Venta #<span th:text="${sale.id}"></span></h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body">
+    <p><strong>Cliente:</strong> <span th:text="${sale.id_customer.name}"></span></p>
+    <p><strong>Empleado:</strong> <span th:text="${sale.id_employee.name}"></span></p>
+    <p><strong>Fecha:</strong> <span th:text="${#temporals.format(sale.sale_date, 'dd/MM/yyyy HH:mm')}"></span></p>
+
+    <div class="table-responsive">
+        <table class="table table-sm table-hover">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unit.</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="det : ${saleDetails}">
+                    <td th:text="${det.id_product.name}"></td>
+                    <td th:text="${det.quantity}"></td>
+                    <td th:text="'$' + ${#numbers.formatDecimal(det.unit_price, 0, 'COMMA', 0, 'POINT')}"></td>
+                    <td th:text="'$' + ${#numbers.formatDecimal(det.subtotal, 0, 'COMMA', 0, 'POINT')}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-3 text-end">
+        <p><strong>Total:</strong>
+            <span th:text="'$' + ${#numbers.formatDecimal(sale.total_amount, 0, 'COMMA', 0, 'POINT')}"></span>
+        </p>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+        <i class="fa-solid fa-print"></i>
+        Imprimir
+    </button>
+</div>

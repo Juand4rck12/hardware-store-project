@@ -3,6 +3,7 @@ package co.edu.sena.hardware_store.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "purchase_order")
@@ -25,6 +26,9 @@ public class PurchaseOrder {
 
     @Column(name = "status", nullable = false, length = 20)
     private String status;
+
+    @Column(name = "order_date", nullable = false)
+    private LocalDateTime order_date;
 
     public Long getId_order() {
         return id_order;
@@ -64,5 +68,13 @@ public class PurchaseOrder {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public LocalDateTime getOrder_date() {
+        return order_date;
+    }
+
+    public void setOrder_date(LocalDateTime order_date) {
+        this.order_date = order_date;
     }
 }
