@@ -3,6 +3,7 @@ package co.edu.sena.hardware_store.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "purchase_order")
@@ -20,11 +21,14 @@ public class PurchaseOrder {
     @JoinColumn(name = "id_employee", referencedColumnName = "id_employee")
     private Employee id_employee;
 
-    @Column(name = "total_amount", precision = 10, scale = 2, nullable = false)
-    private BigDecimal total_amount;
+    @Column(name = "total_amount", nullable = false)
+    private Long total_amount;
 
     @Column(name = "status", nullable = false, length = 20)
     private String status;
+
+    @Column(name = "order_date", nullable = false)
+    private LocalDateTime order_date;
 
     public Long getId_order() {
         return id_order;
@@ -50,11 +54,11 @@ public class PurchaseOrder {
         this.id_employee = id_employee;
     }
 
-    public BigDecimal getTotal_amount() {
+    public Long getTotal_amount() {
         return total_amount;
     }
 
-    public void setTotal_amount(BigDecimal total_amount) {
+    public void setTotal_amount(Long total_amount) {
         this.total_amount = total_amount;
     }
 
@@ -64,5 +68,13 @@ public class PurchaseOrder {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public LocalDateTime getOrder_date() {
+        return order_date;
+    }
+
+    public void setOrder_date(LocalDateTime order_date) {
+        this.order_date = order_date;
     }
 }

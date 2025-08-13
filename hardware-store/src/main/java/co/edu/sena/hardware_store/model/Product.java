@@ -18,8 +18,8 @@ public class Product {
     @Column(name = "category", nullable = false, length = 50)
     private String category;
 
-    @Column(name = "price", precision = 10, scale = 2, nullable = false)
-    private BigDecimal price;
+    @Column(name = "price", nullable = false)
+    private Long price;
 
     @Column(name = "stock_quantity", nullable = false)
     private Integer stock_quantity;
@@ -55,11 +55,11 @@ public class Product {
         this.category = category;
     }
 
-    public BigDecimal getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
