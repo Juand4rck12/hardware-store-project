@@ -40,8 +40,12 @@ public class SupplierController {
 
     @PostMapping("/view/supplier/save")
     public String save(@ModelAttribute Supplier supplier, RedirectAttributes ra) {
-        supplierRepository.save(supplier);
-        ra.addFlashAttribute("success", "Proveedor guardado");
+        try {
+            supplierRepository.save(supplier);
+            ra.addFlashAttribute("success", "Proveedor guardado");
+        } catch (Exception e) {
+            ra.addFlashAttribute("error", "Error al guardar el proveedor");
+        }
         return "redirect:/view/supplier";
     }
 
@@ -54,8 +58,12 @@ public class SupplierController {
 
     @PostMapping("/view/supplier/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes ra) {
-        supplierRepository.deleteById(id);
-        ra.addFlashAttribute("success", "Proveedor eliminado");
+        try {
+            supplierRepository.deleteById(id);
+            ra.addFlashAttribute("success", "Proveedor eliminado");
+        } catch (Exception e) {
+            ra.addFlashAttribute("error", "Error al eliminar el proveedor");
+        }
         return "redirect:/view/employee";
     }
 

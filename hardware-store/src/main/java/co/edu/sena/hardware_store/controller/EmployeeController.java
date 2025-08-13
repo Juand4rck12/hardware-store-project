@@ -53,7 +53,7 @@ public class EmployeeController {
             employeeRepository.save(employee);
             ra.addFlashAttribute("success", "¡Empleado guardado correctamente!");
         } catch (Exception e) {
-            ra.addFlashAttribute("error", "¡Error al guardar el empleado!" + e.getMessage());
+            ra.addFlashAttribute("error", "¡Error al guardar el empleado!");
         }
         return "redirect:/view/employee";
     }
@@ -71,7 +71,7 @@ public class EmployeeController {
             employeeRepository.deleteById(id);
             ra.addFlashAttribute("success", "¡Empleado eliminado correctamente!");
         } catch (Exception e) {
-            ra.addFlashAttribute("error", "¡Error al eliminar el empleado!" + e.getMessage());
+            ra.addFlashAttribute("error", "¡Error al eliminar el empleado!");
         }
         return "redirect:/view/employee";
     }
